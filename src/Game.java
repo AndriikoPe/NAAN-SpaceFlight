@@ -21,6 +21,8 @@ public class Game implements Runnable {
     // Input.
     private KeyManager keyManager;
 
+    private EntityManager entityManager;
+
     public KeyManager getKeyManager() {
         return keyManager;
     }

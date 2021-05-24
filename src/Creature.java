@@ -44,7 +44,7 @@ public abstract class Creature extends Entity {
         speed = DEFAULT_SPEED;
         xMove = 0;
         yMove = 0;
-        bounds = new Rectangle(0, 0, width, height);
+
     }
 
     public void move() {
@@ -56,5 +56,4 @@ public abstract class Creature extends Entity {
     protected float speed;
     protected float xMove;
     protected float yMove;
-    protected Rectangle bounds;
 }

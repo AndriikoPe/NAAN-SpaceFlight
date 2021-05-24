@@ -5,6 +5,7 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected boolean isOffscreen;
+    protected boolean isFriendly;
 
     public Entity(Game game, float x, float y, int width, int height) {
         this.x = x;
@@ -13,6 +14,12 @@ public abstract class Entity {
         this.height = height;
         this.game = game;
         isOffscreen = false;
+        isFriendly = true;
+        bounds = new Rectangle(Math.round(x), Math.round(y), width, height);
+    }
+
+    public boolean isFriendly() {
+        return isFriendly;
     }
 
     public boolean isOffscreen() {
@@ -50,6 +57,12 @@ public abstract class Entity {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Rectangle getBounds() {
+        return new Rectangle(Math.round(x), Math.round(y), width, height);
+    }
+
+    protected Rectangle bounds;
 
     public abstract void tick();
     public abstract void render(Graphics g);

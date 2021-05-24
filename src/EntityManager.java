@@ -8,7 +8,7 @@ public class EntityManager {
 
     private long lastShotTime;
 
-    private final long SHOT_PAUSE = 1000000000 / 2;
+    private final long SHOT_PAUSE = 1000000000 / 3;
 
     public Game getGame() {
         return game;
@@ -55,6 +55,7 @@ public class EntityManager {
                     game,
                     player.getX() + player.getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                     player.getY()));
+            Assets.playDefaultShotSound();
             lastShotTime = System.nanoTime();
         }
     }
