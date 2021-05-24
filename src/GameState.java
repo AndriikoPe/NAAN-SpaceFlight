@@ -38,8 +38,8 @@ public class GameState extends State {
     @Override
     public void render(Graphics g) {
         float playerHealth = entityManager.getPlayer().getHealth() / (float) Player.MAX_PLAYER_HEALTH;
-        g.setColor(new Color(Math.round(255 * (1 - playerHealth)),Math.round(255 * playerHealth), 0));
-        g.fillRect(6, game.getHeight() - 22, Math.round((game.getWidth() - 12) * playerHealth), 15);
+        g.setColor(new Color(Math.round(255 * (1 - playerHealth)), Math.round(255 * playerHealth), 0));
+        g.fillRect(6, game.getHeight() - 16, Math.round((game.getWidth() - 12) * playerHealth), 10);
         entityManager.render(g);
     }
 }
