@@ -4,6 +4,7 @@ public abstract class Entity {
     protected Game game;
     protected float x, y;
     protected int width, height;
+    protected boolean isOffscreen;
 
     public Entity(Game game, float x, float y, int width, int height) {
         this.x = x;
@@ -11,6 +12,11 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         this.game = game;
+        isOffscreen = false;
+    }
+
+    public boolean isOffscreen() {
+        return isOffscreen;
     }
 
     public float getX() {

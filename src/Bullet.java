@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 public class Bullet extends Entity {
     private Game game;
     private final BufferedImage bulletImg;
-    private final int SPEED = 10;
+    private static final int SPEED = 10;
     public static final int BULLET_WIDTH = 20, BULLET_HEIGHT = 20;
 
     public Bullet(Game game, float x, float y) {
@@ -20,6 +20,7 @@ public class Bullet extends Entity {
     @Override
     public void tick() {
         y -= SPEED;
+        if (y < 0) isOffscreen = true;
     }
 
     @Override

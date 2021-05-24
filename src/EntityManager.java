@@ -63,8 +63,8 @@ public class EntityManager {
         if (game.getKeyManager().shoot) shoot();
         for (int i = 0; i < entities.size(); i++) {
             Entity e = entities.get(i);
-            if (e instanceof Bullet && e.getY() < 0) entities.remove(e);
-            e.tick();
+            if (e.isOffscreen()) entities.remove(e);
+            else e.tick();
         }
     }
 
