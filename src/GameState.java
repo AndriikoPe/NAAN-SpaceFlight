@@ -10,6 +10,7 @@ public class GameState extends State {
         int startX = (game.getDisplay().getCanvas().getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2;
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
         entityManager = new EntityManager(game, new Player(game, startX, startY));
+        entityManager.getPlayer().setEntityManager(entityManager);
         r = new Random();
     }
 
@@ -36,6 +37,9 @@ public class GameState extends State {
 
     @Override
     public void render(Graphics g) {
+        float playerHealth = entityManager.getPlayer().getHealth() / (float) Player.MAX_PLAYER_HEALTH;
+        g.setColor(new Color(Math.round(255 * (1 - playerHealth)),Math.round(255 * playerHealth), 0));
+        g.fillRect(6, game.getHeight() - 22, Math.round((game.getWidth() - 12) * playerHealth), 15);
         entityManager.render(g);
     }
 }

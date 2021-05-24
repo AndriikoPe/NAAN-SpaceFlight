@@ -1,8 +1,16 @@
 import java.awt.*;
+import java.util.LinkedList;
 
 public class Player extends Creature {
+    public static final int MAX_PLAYER_HEALTH = 100;
+    private EntityManager entityManager;
+
     public Player(Game game, float x, float y) {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -19,6 +27,15 @@ public class Player extends Creature {
         }
         if (game.getKeyManager().right) {
             if (x + width < game.getDisplay().getCanvas().getWidth()) xMove = speed;
+        }
+        for (int i = 0; i < entityManager.getEntities().size(); i++) {
+            Entity e = entityManager.getEntities().get(i);
+            if (!e.isFriendly()) {
+                if (getBounds().intersects(e.getBounds())) {
+                    entityManager.getEntities().remove(e);
+                    health -= 20;
+                }
+            }
         }
     }
 

@@ -51,10 +51,12 @@ public class EntityManager {
 
     public void shoot() {
         if (System.nanoTime() - lastShotTime > SHOT_PAUSE) {
-            addEntity(new Bullet(
+            Bullet bullet = new Bullet(
                     game,
                     player.getX() + player.getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
-                    player.getY()));
+                    player.getY());
+            bullet.setEntityManager(this);
+            addEntity(bullet);
             Assets.playDefaultShotSound();
             lastShotTime = System.nanoTime();
         }

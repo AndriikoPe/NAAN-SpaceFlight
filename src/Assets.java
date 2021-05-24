@@ -73,5 +73,6 @@ public class Assets {
         Clip sound = defaultShopClips[r.nextInt(defaultShopClips.length)];
         sound.setFramePosition(0);
         sound.start();
+        sound.drain();
     }
 }
