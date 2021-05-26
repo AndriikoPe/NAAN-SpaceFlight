@@ -17,6 +17,7 @@ public class Game implements Runnable {
     // States.
     private State gameState;
     private State menuState;
+    private State selectPlayerState;
 
     // Input.
     private final KeyManager keyManager;
@@ -53,14 +54,20 @@ public class Game implements Runnable {
     public void setGameState() {
         gameState = new GameState(this);
         State.setState(gameState);
-        MouseInput input = ((MenuState) menuState).getMouseInput();
-        display.getCanvas().removeMouseListener(input);
-        display.getCanvas().removeMouseMotionListener(input);
+//        MouseInput input = ((MenuState) menuState).getMouseInput();
+//        display.getCanvas().removeMouseListener(input);
+//        display.getCanvas().removeMouseMotionListener(input);
     }
 
     public void setMenuState() {
         menuState = new MenuState(this);
         State.setState(menuState);
+    }
+
+    public void setSelectPlayerState(){
+        selectPlayerState = new SelectPlayerState(this);
+        State.setState(selectPlayerState);
+
     }
 
     public Display getDisplay() {
