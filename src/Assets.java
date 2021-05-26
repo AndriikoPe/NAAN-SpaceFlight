@@ -2,15 +2,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
 public class Assets {
-    private static final Random r = new Random();;
-
     public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack
             , playerRed, playerBlackImproved, playerRedImproved;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
@@ -36,12 +33,12 @@ public class Assets {
         playerOrange = sheet.crop(width * 3, height, width, height);
         playerDefault = sheet.crop(width * 4, height, width, height);
 
-        planetDark = sheet.crop(0, 0, PLANET_SIZE, PLANET_SIZE);
-        planetOrange = sheet.crop(PLANET_SIZE, 0, PLANET_SIZE, PLANET_SIZE);
-        planetBrown = sheet.crop(PLANET_SIZE * 2, 0, PLANET_SIZE, PLANET_SIZE);
-        planetPurple = sheet.crop(0, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
-        planetEarth = sheet.crop(PLANET_SIZE, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
-        planetBlue = sheet.crop(PLANET_SIZE * 2, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
+        planetDark = planets.crop(0, 0, PLANET_SIZE, PLANET_SIZE);
+        planetOrange = planets.crop(PLANET_SIZE, 0, PLANET_SIZE, PLANET_SIZE);
+        planetBrown = planets.crop(PLANET_SIZE * 2, 0, PLANET_SIZE, PLANET_SIZE);
+        planetPurple = planets.crop(0, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
+        planetEarth = planets.crop(PLANET_SIZE, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
+        planetBlue = planets.crop(PLANET_SIZE * 2, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
 
         enemyRed = sheet.crop(0, 0, width, height);
         enemyBlack = sheet.crop(width, 0, width, height);

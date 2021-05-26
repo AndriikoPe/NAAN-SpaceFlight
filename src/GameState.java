@@ -12,6 +12,8 @@ public class GameState extends State {
         entityManager = new EntityManager(game, new Player(game, startX, startY));
         entityManager.getPlayer().setEntityManager(entityManager);
         r = new Random();
+        spawnEnemies();
+        createPlanets();
     }
 
     public EntityManager getEntityManager() {
