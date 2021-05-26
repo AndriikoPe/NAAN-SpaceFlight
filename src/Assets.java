@@ -63,16 +63,16 @@ public class Assets {
     }
 
     public static void playExplosionSound() {
-        Clip sound = explosionClips[r.nextInt(explosionClips.length)];
-        sound.setFramePosition(0);
-        sound.start();
-        sound.drain();
+//        Clip sound = explosionClips[r.nextInt(explosionClips.length)];
+//        sound.setFramePosition(0);
+//        sound.start();
+//        sound.drain();
     }
 
     public static void playDefaultShotSound() {
-        Clip sound = defaultShopClips[r.nextInt(defaultShopClips.length)];
-        sound.setFramePosition(0);
-        sound.start();
-        sound.drain();
+//        Clip sound = defaultShopClips[r.nextInt(defaultShopClips.length)];
+//        sound.setFramePosition(0);
+//        sound.start();
+//        sound.drain();
     }
 }

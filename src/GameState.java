@@ -19,7 +19,7 @@ public class GameState extends State {
     }
 
     private void spawnEnemies() {
-        int count = r.nextInt(4);
+        int count = r.nextInt(6);
         for (int i = 0; i < count; i++) {
             entityManager.addEntity(new Enemy(
                     game,
@@ -33,6 +33,9 @@ public class GameState extends State {
     public void tick() {
         if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 1) spawnEnemies();
         entityManager.tick();
+        if (entityManager.getPlayer().getHealth() <= 0) {
+            game.setMenuState();
+        }
     }
 
     @Override
