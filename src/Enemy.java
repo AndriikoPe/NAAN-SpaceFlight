@@ -1,10 +1,14 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Enemy extends Creature {
+    Random r = new Random();
+    private int speed;
+
     public Enemy(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
         setHealth(3);
-        this.speed = 2f;
+        speed = r.nextInt(4) +1;
         this.isFriendly = false;
     }
 

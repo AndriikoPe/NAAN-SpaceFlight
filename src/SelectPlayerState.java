@@ -17,10 +17,13 @@ public class SelectPlayerState extends State{
         this.game = game;
         players = new ArrayList<>();
         players.add(new SelectingOption(game, Assets.playerDefault, Math.toRadians(0)));
-        players.add(new SelectingOption(game,Assets.playerBlack, Math.toRadians(72)));
-        players.add(new SelectingOption(game,Assets.playerOrange, Math.toRadians(144)));
-        players.add(new SelectingOption(game,Assets.playerPink, Math.toRadians(216)));
-        players.add(new SelectingOption(game,Assets.playerBlue, Math.toRadians(288)));
+        players.add(new SelectingOption(game,Assets.playerBlack, Math.toRadians(45)));
+        players.add(new SelectingOption(game,Assets.playerOrange, Math.toRadians(90)));
+        players.add(new SelectingOption(game,Assets.playerPink, Math.toRadians(135)));
+        players.add(new SelectingOption(game,Assets.playerBlue, Math.toRadians(180)));
+        players.add(new SelectingOption(game,Assets.playerRed, Math.toRadians(225)));
+        players.add(new SelectingOption(game,Assets.playerBlackImproved, Math.toRadians(270)));
+        players.add(new SelectingOption(game,Assets.playerRedImproved, Math.toRadians(315)));
     }
 
     private SelectingOption getChosen(){
@@ -39,11 +42,11 @@ public class SelectPlayerState extends State{
         }
 
         if (nextCharacter) {
-            angle += direction * 4;
+            angle += direction * 5;
             while (angle < 0) {
                 angle += 360;
             }
-            if (angle % 72 == 0) {
+            if (angle % 10 == 0) {
                 nextCharacter = false;
             }
         }

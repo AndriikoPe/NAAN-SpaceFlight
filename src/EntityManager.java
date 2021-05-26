@@ -41,6 +41,7 @@ public class EntityManager {
         entities.add(player);
     }
 
+
     public void addEntity(Entity e) {
         entities.add(e);
     }

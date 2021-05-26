@@ -11,23 +11,37 @@ import java.util.Random;
 public class Assets {
     private static final Random r = new Random();;
 
-    public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack;
+    public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack
+            , playerRed, playerBlackImproved, playerRedImproved;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
+    public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static Clip[] explosionClips = new Clip[3];
     public static Clip[] defaultShopClips = new Clip[3];
 
     private static final int width = 70, height = 100;
+    private static int PLANET_SIZE = 100;
 
     public static void init() {
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("textures/spritesheet.png"));
+        SpriteSheet planets = new SpriteSheet(ImageLoader.loadImage("textures/planets.png"));
 
+        playerRed = sheet.crop(0, 0, width, height);
+        playerBlackImproved = sheet.crop(width, 0, width, height);
+        playerRedImproved = sheet.crop(width * 2, 0, width, height);
         playerBlack = sheet.crop(width * 3, 0, width, height);
         playerPink = sheet.crop(width * 4, 0, width, height);
         playerBlue = sheet.crop(width * 5, 0, width, height);
         playerOrange = sheet.crop(width * 3, height, width, height);
         playerDefault = sheet.crop(width * 4, height, width, height);
+
+        planetDark = sheet.crop(0, 0, PLANET_SIZE, PLANET_SIZE);
+        planetOrange = sheet.crop(PLANET_SIZE, 0, PLANET_SIZE, PLANET_SIZE);
+        planetBrown = sheet.crop(PLANET_SIZE * 2, 0, PLANET_SIZE, PLANET_SIZE);
+        planetPurple = sheet.crop(0, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
+        planetEarth = sheet.crop(PLANET_SIZE, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
+        planetBlue = sheet.crop(PLANET_SIZE * 2, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
 
         enemyRed = sheet.crop(0, 0, width, height);
         enemyBlack = sheet.crop(width, 0, width, height);
