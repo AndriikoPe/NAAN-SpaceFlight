@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public abstract class Creature extends Entity {
     public static final int DEFAULT_HEALTH = 100;
     public static final float DEFAULT_SPEED = 3.0f;
@@ -44,7 +42,6 @@ public abstract class Creature extends Entity {
         speed = DEFAULT_SPEED;
         xMove = 0;
         yMove = 0;
-
     }
 
     public void move() {

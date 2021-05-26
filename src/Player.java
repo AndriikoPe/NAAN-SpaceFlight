@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.LinkedList;
 
 public class Player extends Creature {
     public static final int MAX_PLAYER_HEALTH = 100;

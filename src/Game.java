@@ -4,7 +4,7 @@ import java.awt.image.BufferStrategy;
 public class Game implements Runnable {
     private Display display;
 
-    private int width, height;
+    private final int width, height;
     public String title;
 
     private boolean running = false;
@@ -19,9 +19,7 @@ public class Game implements Runnable {
     private State menuState;
 
     // Input.
-    private KeyManager keyManager;
-
-    private EntityManager entityManager;
+    private final KeyManager keyManager;
 
     public KeyManager getKeyManager() {
         return keyManager;
