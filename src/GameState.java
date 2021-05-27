@@ -18,11 +18,11 @@ public class GameState extends State {
     private void spawnEnemies() {
         int count = r.nextInt(6);
         for (int i = 0; i < count; i++) {
-            entityManager.addEntity(new Enemy(
-                    game,
-                    r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH),
+            entityManager.addEntity(new ShootingEnemy(
+                    game, r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH),
                     -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT,
-                    70, 100));
+                    70, 100,
+                    entityManager));
         }
     }
 

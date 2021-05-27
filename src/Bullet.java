@@ -23,6 +23,10 @@ public class Bullet extends Entity {
         isDestroyable = destroyable;
     }
 
+    public void setFriendly(boolean friendly) {
+        isFriendly = friendly;
+    }
+
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -31,10 +35,11 @@ public class Bullet extends Entity {
     public void tick() {
         y -= yMove;
         x += xMove;
-        if (y < 0) isOffscreen = true;
+        if (y < 0 || y > game.getHeight()) isOffscreen = true;
+        if (!isFriendly) return;
         for (int i = 0; i < entityManager.getEntities().size(); i++) {
             Entity e = entityManager.getEntities().get(i);
-            if (!e.isFriendly()) {
+            if (!e.isFriendly() && !(e instanceof Bullet)) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.getEntities().remove(e);
                     if (isDestroyable) entityManager.getEntities().remove(this);
