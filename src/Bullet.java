@@ -2,19 +2,25 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bullet extends Entity {
-    private Game game;
     private final BufferedImage bulletImg;
-    private static final int SPEED = 10;
     public static final int BULLET_WIDTH = 20, BULLET_HEIGHT = 20;
     private EntityManager entityManager;
+    private final float xMove, yMove;
+    private boolean isDestroyable;
 
-    public Bullet(Game game, float x, float y) {
+    public Bullet(Game game, float x, float y, float xMove, float yMove, BufferedImage bulletImg) {
         super(game, x, y, BULLET_WIDTH, BULLET_HEIGHT);
-        this.game = game;
         this.x = x;
         this.y = y;
+        this.xMove = xMove;
+        this.yMove = yMove;
+        isDestroyable = true;
         // TODO: - Implement selecting bullet. Default for now.
-        bulletImg = Assets.playerOrange;
+        this.bulletImg = bulletImg;
+    }
+
+    public void setDestroyable(boolean destroyable) {
+        isDestroyable = destroyable;
     }
 
     public void setEntityManager(EntityManager entityManager) {
@@ -23,14 +29,15 @@ public class Bullet extends Entity {
 
     @Override
     public void tick() {
-        y -= SPEED;
+        y -= yMove;
+        x += xMove;
         if (y < 0) isOffscreen = true;
         for (int i = 0; i < entityManager.getEntities().size(); i++) {
             Entity e = entityManager.getEntities().get(i);
             if (!e.isFriendly()) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.getEntities().remove(e);
-                    entityManager.getEntities().remove(this);
+                    if (isDestroyable) entityManager.getEntities().remove(this);
                     Assets.playExplosionSound();
                 }
             }

@@ -3,9 +3,14 @@ import java.awt.*;
 public class Player extends Creature {
     public static final int MAX_PLAYER_HEALTH = 100;
     private EntityManager entityManager;
+    private Weapon weapon;
 
     public Player(Game game, float x, float y) {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     public void setEntityManager(EntityManager entityManager) {
@@ -16,6 +21,10 @@ public class Player extends Creature {
     public void tick() {
         getInput();
         move();
+    }
+
+    public void shoot() {
+        if (weapon != null) weapon.shoot();
     }
 
     public void getInput() {

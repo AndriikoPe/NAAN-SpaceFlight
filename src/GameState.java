@@ -11,11 +11,8 @@ public class GameState extends State {
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
         entityManager = new EntityManager(game, new Player(game, startX, startY));
         entityManager.getPlayer().setEntityManager(entityManager);
+        entityManager.getPlayer().setWeapon(new BarrageWeapon(game, entityManager));
         r = new Random();
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
     }
 
     private void spawnEnemies() {

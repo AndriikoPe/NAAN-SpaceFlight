@@ -6,10 +6,6 @@ public class EntityManager {
     private Player player;
     private LinkedList<Entity> entities;
 
-    private long lastShotTime;
-
-    private final long SHOT_PAUSE = 1000000000 / 3;
-
     public Game getGame() {
         return game;
     }
@@ -49,21 +45,8 @@ public class EntityManager {
         entities.add(e);
     }
 
-    public void shoot() {
-        if (System.nanoTime() - lastShotTime > SHOT_PAUSE) {
-            Bullet bullet = new Bullet(
-                    game,
-                    player.getX() + player.getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
-                    player.getY());
-            bullet.setEntityManager(this);
-            addEntity(bullet);
-            Assets.playDefaultShotSound();
-            lastShotTime = System.nanoTime();
-        }
-    }
-
     public void tick() {
-        if (game.getKeyManager().shoot) shoot();
+        if (game.getKeyManager().shoot) player.shoot();
         for (int i = 0; i < entities.size(); i++) {
             Entity e = entities.get(i);
             if (e.isOffscreen()) entities.remove(e);

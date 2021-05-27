@@ -1,8 +1,4 @@
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.*;
+import javax.sound.sampled.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +11,9 @@ public class Assets {
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
     public static Clip[] explosionClips = new Clip[3];
-    public static Clip[] defaultShopClips = new Clip[3];
+    public static Clip[] defaultShotClips = new Clip[3];
+    public static Clip[] barrageShotClips = new Clip[3];
+    public static Clip[] metallicShotClips = new Clip[3];
 
     private static final int width = 70, height = 100;
 
@@ -49,30 +47,55 @@ public class Assets {
             explosionClips[2] = AudioSystem.getClip();
             explosionClips[2].open(AudioSystem.getAudioInputStream(new File("sound/explosion3.wav")));
 
-            defaultShopClips[0] = AudioSystem.getClip();
-            defaultShopClips[0].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot1.wav")));
+            defaultShotClips[0] = AudioSystem.getClip();
+            defaultShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot1.wav")));
 
-            defaultShopClips[1] = AudioSystem.getClip();
-            defaultShopClips[1].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot2.wav")));
+            defaultShotClips[1] = AudioSystem.getClip();
+            defaultShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot2.wav")));
 
-            defaultShopClips[2] = AudioSystem.getClip();
-            defaultShopClips[2].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot3.wav")));
+            defaultShotClips[2] = AudioSystem.getClip();
+            defaultShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/defaultShot3.wav")));
+
+            barrageShotClips[0] = AudioSystem.getClip();
+            barrageShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/barrageShot1.wav")));
+
+            barrageShotClips[1] = AudioSystem.getClip();
+            barrageShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/barrageShot2.wav")));
+
+            barrageShotClips[2] = AudioSystem.getClip();
+            barrageShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/barrageShot3.wav")));
+
+            metallicShotClips[0] = AudioSystem.getClip();
+            metallicShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/metallicShot1.wav")));
+
+            metallicShotClips[1] = AudioSystem.getClip();
+            metallicShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/metallicShot2.wav")));
+
+            metallicShotClips[2] = AudioSystem.getClip();
+            metallicShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/metallicShot3.wav")));
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
 
     public static void playExplosionSound() {
-//        Clip sound = explosionClips[r.nextInt(explosionClips.length)];
-//        sound.setFramePosition(0);
-//        sound.start();
-//        sound.drain();
+        playSound(explosionClips[r.nextInt(explosionClips.length)]);
     }
 
     public static void playDefaultShotSound() {
-//        Clip sound = defaultShopClips[r.nextInt(defaultShopClips.length)];
-//        sound.setFramePosition(0);
-//        sound.start();
-//        sound.drain();
+        playSound(defaultShotClips[r.nextInt(defaultShotClips.length)]);
+    }
+
+    public static void playMetallicShotSound() {
+        playSound(metallicShotClips[r.nextInt(metallicShotClips.length)]);
+    }
+
+    public static void playBarrageShotSound() {
+        playSound(barrageShotClips[r.nextInt(barrageShotClips.length)]);
+    }
+
+    public static void playSound(Clip sound) {
+        sound.setFramePosition(0);
+        sound.start();
     }
 }
