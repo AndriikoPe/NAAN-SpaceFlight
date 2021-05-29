@@ -13,6 +13,16 @@ public class GameState extends State {
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new BarrageWeapon(game, entityManager));
         r = new Random();
+        spawnEnemies();
+        createPlanets();
+    }
+
+    private  void createPlanets(){
+        for (int i = 0; i < 6; i++) {
+            entityManager.addEntity(new Planet(game,r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH),
+                    -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT,
+                    100, 100));
+        }
     }
 
     private void spawnEnemies() {
