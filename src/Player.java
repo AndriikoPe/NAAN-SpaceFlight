@@ -46,6 +46,7 @@ public class Player extends Creature {
 
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
+        ultimate.setEntityManager(entityManager);
     }
 
     @Override

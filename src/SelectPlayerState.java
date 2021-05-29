@@ -21,9 +21,9 @@ public class SelectPlayerState extends State{
         players.add(new SelectingOption(game,Assets.playerOrange, Math.toRadians(90)));
         players.add(new SelectingOption(game,Assets.playerPink, Math.toRadians(135)));
         players.add(new SelectingOption(game,Assets.playerBlue, Math.toRadians(180)));
-        players.add(new SelectingOption(game,Assets.playerRed, Math.toRadians(225)));
-        players.add(new SelectingOption(game,Assets.playerBlackImproved, Math.toRadians(270)));
-        players.add(new SelectingOption(game,Assets.playerRedImproved, Math.toRadians(315)));
+//        players.add(new SelectingOption(game,Assets.playerRed, Math.toRadians(225)));
+//        players.add(new SelectingOption(game,Assets.playerBlackImproved, Math.toRadians(270)));
+//        players.add(new SelectingOption(game,Assets.playerRedImproved, Math.toRadians(315)));
     }
 
     private SelectingOption getChosen(){

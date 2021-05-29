@@ -2,11 +2,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bullet extends Entity {
-    private final BufferedImage bulletImg;
+    protected final BufferedImage bulletImg;
     public static final int BULLET_WIDTH = 20, BULLET_HEIGHT = 20;
-    private EntityManager entityManager;
-    private final float xMove, yMove;
-    private boolean isDestroyable;
+    protected EntityManager entityManager;
+    protected final float xMove, yMove;
+    protected boolean isDestroyable;
 
     public Bullet(Game game, float x, float y, float xMove, float yMove, BufferedImage bulletImg) {
         super(game, x, y, BULLET_WIDTH, BULLET_HEIGHT);
@@ -41,9 +41,12 @@ public class Bullet extends Entity {
             Entity e = entityManager.getEntities().get(i);
             if (!e.isFriendly() && !(e instanceof Bullet)) {
                 if (getBounds().intersects(e.getBounds())) {
-                    entityManager.getEntities().remove(e);
+                    entityManager.removeEntity(e);
+                    entityManager.addEntity(new Explosion(game, entityManager,
+                            Explosion.EXPLOSION_DEFAULT_WIDTH, Explosion.EXPLOSION_DEFAULT_HEIGHT,
+                            e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL));
                     entityManager.getPlayer().heal(1);
-                    if (isDestroyable) entityManager.getEntities().remove(this);
+                    if (isDestroyable) entityManager.removeEntity(this);
                     Assets.playExplosionSound();
                 }
             }

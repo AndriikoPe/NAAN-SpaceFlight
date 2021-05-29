@@ -43,7 +43,7 @@ public class EntityManager {
     }
 
     public void removeEntity(Entity e) {
-        entities.add(e);
+        entities.remove(e);
     }
 
     public void tick() {

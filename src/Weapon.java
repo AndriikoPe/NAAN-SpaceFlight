@@ -5,7 +5,7 @@ public abstract class Weapon {
     protected EntityManager entityManager;
 
     protected static final long DEFAULT_SHOT_PAUSE = 1000000000 / 3;
-    protected static final long METALLIC_SHOT_PAUSE = 1000000000 / 2;
+    protected static final long METALLIC_SHOT_PAUSE = Math.round(1000000000 / 1.1);
     protected static final long BARRAGE_SHOT_PAUSE = 1000000000;
     protected static final long ENEMY_SHOT_PAUSE = 1000000000 * 2;
 
@@ -15,5 +15,5 @@ public abstract class Weapon {
         this.shotPause = shotPause;
     }
 
-    public void shoot() { }
+    public abstract void shoot();
 }
