@@ -7,7 +7,7 @@ public class DefaultUltimate extends Ultimate {
     public DefaultUltimate(Game game) {
         super(game);
         lastTick = System.nanoTime();
-        TIME_TO_LOAD_ONE_PERCENT = 1_000_000;
+        TIME_TO_LOAD_ONE_PERCENT = 1_000_000_000;
         readiness = 100;
     }
 

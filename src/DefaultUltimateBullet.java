@@ -7,7 +7,6 @@ public class DefaultUltimateBullet extends Bullet {
 
     public DefaultUltimateBullet(Game game, float x, float y, BufferedImage bulletImg) {
         super(game, x, y, 0, SPEED, bulletImg);
-        System.out.println("Friendly bullet: " + x + ' ' + y);
         setFriendly(true);
         width = DEFAULT_ULTIMATE_BULLET_WIDTH;
         height = DEFAULT_ULTIMATE_BULLET_HEIGHT;
