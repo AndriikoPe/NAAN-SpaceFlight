@@ -13,6 +13,13 @@ public class Player extends Creature {
         initPlayer(selection);
     }
 
+    public void heal(int amount) {
+        if (health + amount > 100)
+            health = 100;
+        else
+            health += amount;
+    }
+
     private void initPlayer(PlayerSelection selection) {
         // TODO: - implement player initialization based on selection.
         switch (selection) {

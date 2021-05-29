@@ -42,6 +42,7 @@ public class Bullet extends Entity {
             if (!e.isFriendly() && !(e instanceof Bullet)) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.getEntities().remove(e);
+                    entityManager.getPlayer().heal(1);
                     if (isDestroyable) entityManager.getEntities().remove(this);
                     Assets.playExplosionSound();
                 }
