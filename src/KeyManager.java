@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
     private final boolean[] keys;
-    public boolean left, right, shoot;
+    public boolean left, right, shoot, ultimate;
 
     public KeyManager() {
         keys = new boolean[256];
@@ -13,6 +13,7 @@ public class KeyManager implements KeyListener {
         left = keys[KeyEvent.VK_A] || keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT];
         shoot = keys[KeyEvent.VK_SPACE] || keys[KeyEvent.VK_W];
+        ultimate = keys[KeyEvent.VK_1];
     }
 
     @Override

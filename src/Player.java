@@ -1,12 +1,36 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
     public static final int MAX_PLAYER_HEALTH = 100;
     private EntityManager entityManager;
+    private BufferedImage playerImage;
     private Weapon weapon;
+    protected Ultimate ultimate;
 
-    public Player(Game game, float x, float y) {
+    public Player(Game game, float x, float y, PlayerSelection selection) {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
+        initPlayer(selection);
+    }
+
+    private void initPlayer(PlayerSelection selection) {
+        // TODO: - implement player initialization based on selection.
+        switch (selection) {
+            case DEFAULT:
+                ultimate = new DefaultUltimate(game);
+                playerImage = Assets.playerDefault;
+                break;
+            case BLUE:
+                break;
+            case PINK:
+                break;
+            case BLACK:
+                break;
+            case ORANGE:
+                break;
+            default:
+                System.out.println("Something went wrong");
+        }
     }
 
     public void setWeapon(Weapon weapon) {
@@ -20,22 +44,7 @@ public class Player extends Creature {
     @Override
     public void tick() {
         getInput();
-        move();
-    }
-
-    public void shoot() {
-        if (weapon != null) weapon.shoot();
-    }
-
-    public void getInput() {
-        xMove = 0;
-        yMove = 0;
-        if (game.getKeyManager().left) {
-            if (x > 0) xMove = -speed;
-        }
-        if (game.getKeyManager().right) {
-            if (x + width < game.getDisplay().getCanvas().getWidth()) xMove = speed;
-        }
+        ultimate.tick();
         for (int i = 0; i < entityManager.getEntities().size(); i++) {
             Entity e = entityManager.getEntities().get(i);
             if (!e.isFriendly()) {
@@ -45,10 +54,37 @@ public class Player extends Creature {
                 }
             }
         }
+        move();
+    }
+
+    public void shoot() {
+        if (weapon != null) weapon.shoot();
+    }
+
+    private void useUltimate() {
+        ultimate.use();
+    }
+
+    public void getInput() {
+        xMove = 0;
+        yMove = 0;
+        if (game.getKeyManager().shoot) shoot();
+        if (game.getKeyManager().ultimate) useUltimate();
+        if (game.getKeyManager().left) {
+            if (x > 0) xMove = -speed;
+        }
+        if (game.getKeyManager().right) {
+            if (x + width < game.getWidth()) xMove = speed;
+        }
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.playerDefault, Math.round(x), Math.round(y), width, height, null);
+        g.drawImage(playerImage, Math.round(x), Math.round(y), width, height, null);
+        ultimate.render(g);
     }
+}
+
+enum PlayerSelection {
+    DEFAULT, BLACK, BLUE, ORANGE, PINK;
 }

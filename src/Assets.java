@@ -13,6 +13,7 @@ public class Assets {
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
+    public static BufferedImage ultimateNotReady, ultimateReady;
     public static Clip[] explosionClips = new Clip[3];
     public static Clip[] defaultShotClips = new Clip[3];
     public static Clip[] barrageShotClips = new Clip[3];
@@ -27,6 +28,9 @@ public class Assets {
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("textures/spritesheet.png"));
         SpriteSheet planets = new SpriteSheet(ImageLoader.loadImage("textures/planets.png"));
+
+        ultimateNotReady = ImageLoader.loadImage("textures/ultimateNotReady.png");
+        ultimateReady = ImageLoader.loadImage("textures/ultimateReady.png");
 
         playerRed = sheet.crop(0, 0, width, height);
         playerBlackImproved = sheet.crop(width, 0, width, height);

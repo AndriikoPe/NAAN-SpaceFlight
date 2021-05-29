@@ -15,13 +15,5 @@ public abstract class Weapon {
         this.shotPause = shotPause;
     }
 
-    public long getShotPause() {
-        return shotPause;
-    }
-
-    public void setShotPause(long pause) {
-        this.shotPause = pause;
-    }
-
     public void shoot() { }
 }
