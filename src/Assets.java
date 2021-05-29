@@ -11,6 +11,7 @@ public class Assets {
     public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack
             , playerRed, playerBlackImproved, playerRedImproved;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
+    public static BufferedImage coin0, coin1, coin2, coin3, coin4, coin5;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static Clip[] explosionClips = new Clip[3];
@@ -20,6 +21,8 @@ public class Assets {
 
     private static final int width = 70, height = 100;
     private static final int PLANET_SIZE = 100;
+    private static final int COIN_WIDTH = 18;
+    private static final int COIN_HEIGHT = 20;
     private static Random r;
 
     public static void init() {
@@ -27,6 +30,7 @@ public class Assets {
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("textures/spritesheet.png"));
         SpriteSheet planets = new SpriteSheet(ImageLoader.loadImage("textures/planets.png"));
+        SpriteSheet coins = new SpriteSheet(ImageLoader.loadImage("textures/coin.png"));
 
         playerRed = sheet.crop(0, 0, width, height);
         playerBlackImproved = sheet.crop(width, 0, width, height);
@@ -48,6 +52,13 @@ public class Assets {
         enemyBlack = sheet.crop(width, 0, width, height);
         enemyBrown = sheet.crop(width * 2, 0, width, height);
         enemyGreen = sheet.crop(0, height, width, height);
+
+        coin0 = coins.crop(0, 0, COIN_WIDTH, COIN_HEIGHT);
+        coin1 = coins.crop(COIN_WIDTH, 0, COIN_WIDTH, COIN_HEIGHT);
+        coin2 = coins.crop(COIN_WIDTH * 2, 0, COIN_WIDTH, COIN_HEIGHT);
+        coin3 = coins.crop(COIN_WIDTH * 3, 0, COIN_WIDTH, COIN_HEIGHT);
+        coin4 = coins.crop(COIN_WIDTH * 4, 0, COIN_WIDTH, COIN_HEIGHT);
+        coin5 = coins.crop(COIN_WIDTH * 5, 0, COIN_WIDTH, COIN_HEIGHT);
 
         playButtonActive = ImageLoader.loadImage("textures/play_button_active.png");
         playButtonInactive = ImageLoader.loadImage("textures/play_button_inactive.png");
