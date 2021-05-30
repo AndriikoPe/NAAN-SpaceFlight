@@ -1,11 +1,11 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class DefaultUltimateBullet extends Bullet {
+public class OrangeUltimateBullet extends Bullet {
     private static final float SPEED = 20;
     public static final int DEFAULT_ULTIMATE_BULLET_WIDTH = 30, DEFAULT_ULTIMATE_BULLET_HEIGHT = 30;
 
-    public DefaultUltimateBullet(Game game, float x, float y, BufferedImage bulletImg) {
+    public OrangeUltimateBullet(Game game, float x, float y, BufferedImage bulletImg) {
         super(game, x, y, 0, SPEED, bulletImg);
         setFriendly(true);
         width = DEFAULT_ULTIMATE_BULLET_WIDTH;
@@ -23,7 +23,7 @@ public class DefaultUltimateBullet extends Bullet {
             explosion.setY(game.getHeight() / 2f - 250);
             explosion.setScale(6);
             entityManager.addEntity(explosion);
-            Assets.playSound(Assets.defaultUltimateExplosion);
+            Assets.playSound(Assets.orangeUltimateExplosion);
             for (int i = 0; i < entityManager.getEntities().size(); i++) {
                 Entity e = entityManager.getEntities().get(i);
                 if (!e.isFriendly()) {

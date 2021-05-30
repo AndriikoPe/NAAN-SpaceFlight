@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class DefaultUltimate extends Ultimate {
     private long lastTick;
     private final long TIME_TO_LOAD_ONE_PERCENT;
@@ -7,21 +5,15 @@ public class DefaultUltimate extends Ultimate {
     public DefaultUltimate(Game game) {
         super(game);
         lastTick = System.nanoTime();
-        TIME_TO_LOAD_ONE_PERCENT = 1_000_000_000;
-        readiness = 100;
+        TIME_TO_LOAD_ONE_PERCENT = 1_000_000_000 / 2;
+        readiness = 0;
     }
 
     @Override
     public void use() {
         if (isReady()) {
-            Assets.playSound(Assets.defaultUltimateShot);
-            DefaultUltimateBullet bullet = new DefaultUltimateBullet(
-                    game,
-                    entityManager.getPlayer().getX() + (entityManager.getPlayer().getWidth()
-                            - DefaultUltimateBullet.DEFAULT_ULTIMATE_BULLET_WIDTH) / 2f, entityManager.getPlayer().getY(),
-                    Assets.planetBlue);
-            bullet.setEntityManager(entityManager);
-            entityManager.addEntity(bullet);
+            Assets.playSound(Assets.defaultUltimateUse);
+            entityManager.getPlayer().heal(entityManager.getPlayer().getMaxHealth());
             readiness = 0;
         }
     }

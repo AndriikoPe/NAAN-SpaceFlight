@@ -14,11 +14,12 @@ public class Assets {
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static BufferedImage ultimateNotReady, ultimateReady;
     public static BufferedImage explosionImage, bigExplosionImage;
+    // Sounds
     public static Clip[] explosionClips = new Clip[3];
     public static Clip[] defaultShotClips = new Clip[3];
     public static Clip[] barrageShotClips = new Clip[3];
     public static Clip[] metallicShotClips = new Clip[3];
-    public static Clip defaultUltimateShot, defaultUltimateExplosion;
+    public static Clip orangeUltimateShot, orangeUltimateExplosion, defaultUltimateUse;
 
     private static final int width = 70, height = 100;
     private static final int PLANET_SIZE = 100;
@@ -96,11 +97,14 @@ public class Assets {
             metallicShotClips[2] = AudioSystem.getClip();
             metallicShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/metallicShot3.wav")));
 
-            defaultUltimateShot = AudioSystem.getClip();
-            defaultUltimateShot.open(AudioSystem.getAudioInputStream(new File("sound/defaultUltimateShot.wav")));
+            orangeUltimateShot = AudioSystem.getClip();
+            orangeUltimateShot.open(AudioSystem.getAudioInputStream(new File("sound/orangeUltimateShot.wav")));
 
-            defaultUltimateExplosion = AudioSystem.getClip();
-            defaultUltimateExplosion.open(AudioSystem.getAudioInputStream(new File("sound/defaultUltimateExplosion.wav")));
+            orangeUltimateExplosion = AudioSystem.getClip();
+            orangeUltimateExplosion.open(AudioSystem.getAudioInputStream(new File("sound/orangeUltimateExplosion.wav")));
+
+            defaultUltimateUse = AudioSystem.getClip();
+            defaultUltimateUse.open(AudioSystem.getAudioInputStream(new File("sound/defaultUltimateUse.wav")));
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

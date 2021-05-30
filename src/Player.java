@@ -3,13 +3,23 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
     public static final int MAX_PLAYER_HEALTH = 100;
+    private int maxHealth;
     private EntityManager entityManager;
     private BufferedImage playerImage;
     private Weapon weapon;
     protected Ultimate ultimate;
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
     public Player(Game game, float x, float y, PlayerSelection selection) {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
+        maxHealth = MAX_PLAYER_HEALTH;
         initPlayer(selection);
     }
 
@@ -34,6 +44,8 @@ public class Player extends Creature {
             case BLACK:
                 break;
             case ORANGE:
+                ultimate = new OrangeUltimate(game);
+                playerImage = Assets.playerOrange;
                 break;
             default:
                 System.out.println("Something went wrong");
