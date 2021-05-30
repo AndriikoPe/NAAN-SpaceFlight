@@ -1,5 +1,9 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Game implements Runnable {
     private Display display;
@@ -9,6 +13,7 @@ public class Game implements Runnable {
 
     private boolean running = false;
     private Thread thread;
+    private int points;
 
     private BufferStrategy bs;
     private Graphics g;
@@ -33,6 +38,19 @@ public class Game implements Runnable {
         keyManager = new KeyManager();
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void addPoints(int counter){
+        points += counter;
+        try {
+            Files.write(Paths.get("Score.txt"), (points + "").getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getWidth() {
         return width;
     }
@@ -49,11 +67,18 @@ public class Game implements Runnable {
         background = new Background(this);
         menuState = new MenuState(this);
         State.setState(menuState);
+        try {
+            List<String> score = Files.readAllLines(Paths.get("Score.txt"));
+            if(score.size() >= 1) points = Integer.parseInt(score.get(0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setGameState() {
         gameState = new GameState(this);
         State.setState(gameState);
+
 //        MouseInput input = ((MenuState) menuState).getMouseInput();
 //        display.getCanvas().removeMouseListener(input);
 //        display.getCanvas().removeMouseMotionListener(input);
@@ -90,6 +115,11 @@ public class Game implements Runnable {
         g.clearRect(0, 0, width, height);
         background.render(g);
         if (State.getState() != null) State.getState().render(g);
+        g.setFont(new Font("Courier New", Font.PLAIN, 18));
+        g.setColor(Color.green);
+        String text = "Score: " + points;
+        g.drawString(text, 20, 35);
+        g.drawImage(Assets.coin0, 25 + g.getFontMetrics().stringWidth(text), 18, null);
         bs.show();
         g.dispose();
     }

@@ -72,6 +72,11 @@ public class Player extends Creature {
                     entityManager.getEntities().remove(e);
                     health -= 20;
                 }
+            }else if (e instanceof Coin){
+                if (getBounds().intersects(e.getBounds())) {
+                    entityManager.getEntities().remove(e);
+                    game.addPoints(1);
+                }
             }
         }
         move();
