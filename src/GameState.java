@@ -36,7 +36,7 @@ public class GameState extends State {
                     entityManager));
         }
 
-        count = r.nextInt(10);
+        count = r.nextInt(20);
         int coinX = r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH);
         int coinY = -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT;
         for (int i = 0; i < count; i++) {
