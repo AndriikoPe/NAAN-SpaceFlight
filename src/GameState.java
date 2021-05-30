@@ -15,6 +15,7 @@ public class GameState extends State {
         r = new Random();
         spawnEnemies();
         createPlanets();
+
     }
 
     private  void createPlanets(){
@@ -33,6 +34,14 @@ public class GameState extends State {
                     -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT,
                     70, 100,
                     entityManager));
+        }
+
+        count = r.nextInt(10);
+        int coinX = r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH);
+        int coinY = -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT;
+        for (int i = 0; i < count; i++) {
+            entityManager.addEntity(new Coin(game, coinX,
+                    coinY-= 50 , 18, 20));
         }
     }
 
