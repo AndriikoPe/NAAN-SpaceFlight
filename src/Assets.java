@@ -19,6 +19,9 @@ public class Assets {
     public static Clip[] defaultShotClips = new Clip[3];
     public static Clip[] barrageShotClips = new Clip[3];
     public static Clip[] metallicShotClips = new Clip[3];
+    public static Clip[] doubleShotClips = new Clip[3];
+    // Ultimates sounds
+    public static Clip[] blackUltimateShotClips = new Clip[3];
     public static Clip orangeUltimateShot, orangeUltimateExplosion, defaultUltimateUse;
 
     private static final int width = 70, height = 100;
@@ -97,6 +100,24 @@ public class Assets {
             metallicShotClips[2] = AudioSystem.getClip();
             metallicShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/metallicShot3.wav")));
 
+            doubleShotClips[0] = AudioSystem.getClip();
+            doubleShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/doubleShot1.wav")));
+
+            doubleShotClips[1] = AudioSystem.getClip();
+            doubleShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/doubleShot2.wav")));
+
+            doubleShotClips[2] = AudioSystem.getClip();
+            doubleShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/doubleShot3.wav")));
+
+            blackUltimateShotClips[0] = AudioSystem.getClip();
+            blackUltimateShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot1.wav")));
+
+            blackUltimateShotClips[1] = AudioSystem.getClip();
+            blackUltimateShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot2.wav")));
+
+            blackUltimateShotClips[2] = AudioSystem.getClip();
+            blackUltimateShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot3.wav")));
+
             orangeUltimateShot = AudioSystem.getClip();
             orangeUltimateShot.open(AudioSystem.getAudioInputStream(new File("sound/orangeUltimateShot.wav")));
 
@@ -124,6 +145,14 @@ public class Assets {
 
     public static void playBarrageShotSound() {
         playSound(barrageShotClips[r.nextInt(barrageShotClips.length)]);
+    }
+
+    public static void playDoubleShotSound() {
+        playSound(doubleShotClips[r.nextInt(doubleShotClips.length)]);
+    }
+
+    public static void playBlackUltimateShotSound() {
+        playSound(blackUltimateShotClips[r.nextInt(blackUltimateShotClips.length)]);
     }
 
     public static void playSound(Clip sound) {

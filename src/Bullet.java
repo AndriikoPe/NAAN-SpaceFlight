@@ -5,6 +5,7 @@ public class Bullet extends Entity {
     protected final BufferedImage bulletImg;
     public static final int BULLET_WIDTH = 20, BULLET_HEIGHT = 20;
     protected EntityManager entityManager;
+    private int healPerHit;
     protected final float xMove, yMove;
     protected boolean isDestroyable;
 
@@ -17,6 +18,11 @@ public class Bullet extends Entity {
         isDestroyable = true;
         // TODO: - Implement selecting bullet. Default for now.
         this.bulletImg = bulletImg;
+        healPerHit = 1;
+    }
+
+    public void setHealPerHit(int healPerHit) {
+        this.healPerHit = healPerHit;
     }
 
     public void setDestroyable(boolean destroyable) {
@@ -45,7 +51,7 @@ public class Bullet extends Entity {
                     entityManager.addEntity(new Explosion(game, entityManager,
                             Explosion.EXPLOSION_DEFAULT_WIDTH, Explosion.EXPLOSION_DEFAULT_HEIGHT,
                             e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL));
-                    entityManager.getPlayer().heal(1);
+                    entityManager.getPlayer().heal(healPerHit);
                     if (isDestroyable) entityManager.removeEntity(this);
                     Assets.playExplosionSound();
                 }

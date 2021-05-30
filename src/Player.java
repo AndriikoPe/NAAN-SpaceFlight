@@ -34,7 +34,7 @@ public class Player extends Creature {
         // TODO: - implement player initialization based on selection.
         switch (selection) {
             case DEFAULT:
-                ultimate = new DefaultUltimate(game);
+                ultimate = new BlackUltimate(game);
                 playerImage = Assets.playerDefault;
                 break;
             case BLUE:
