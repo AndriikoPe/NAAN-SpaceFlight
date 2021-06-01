@@ -34,14 +34,19 @@ public class Player extends Creature {
         // TODO: - implement player initialization based on selection.
         switch (selection) {
             case DEFAULT:
-                ultimate = new BlackUltimate(game);
+                ultimate = new DefaultUltimate(game);
                 playerImage = Assets.playerDefault;
                 break;
             case BLUE:
+                //TODO: - blue ultimate.
                 break;
             case PINK:
+                ultimate = new PinkUltimate(game);
+                playerImage = Assets.playerPink;
                 break;
             case BLACK:
+                ultimate = new BlackUltimate(game);
+                playerImage = Assets.playerBlack;
                 break;
             case ORANGE:
                 ultimate = new OrangeUltimate(game);
@@ -50,6 +55,10 @@ public class Player extends Creature {
             default:
                 System.out.println("Something went wrong");
         }
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 
     public void setWeapon(Weapon weapon) {
@@ -69,6 +78,9 @@ public class Player extends Creature {
             Entity e = entityManager.getEntities().get(i);
             if (!e.isFriendly()) {
                 if (getBounds().intersects(e.getBounds())) {
+                    Assets.playPlayerHitSound();
+                    entityManager.addEntity(new Explosion(game, entityManager,
+                            e.getWidth(), e.getWidth(), e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL / 2));
                     entityManager.getEntities().remove(e);
                     health -= 20;
                 }

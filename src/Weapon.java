@@ -16,5 +16,9 @@ public abstract class Weapon {
         this.shotPause = shotPause;
     }
 
+    public void setLastShotTime(long lastShotTime) {
+        this.lastShotTime = lastShotTime;
+    }
+
     public abstract void shoot();
 }

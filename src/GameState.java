@@ -9,7 +9,7 @@ public class GameState extends State {
         super(game);
         int startX = (game.getDisplay().getCanvas().getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2;
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
-        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.DEFAULT));
+        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.PINK));
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
         r = new Random();
