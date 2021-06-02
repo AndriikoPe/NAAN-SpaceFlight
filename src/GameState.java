@@ -1,21 +1,20 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Map;
-import java.util.Random;
 
 public class GameState extends State {
     private final EntityManager entityManager;
-    private final Random r;
+    private long lastPauseTime;
 
     public GameState(Game game) {
         super(game);
         int startX = (game.getDisplay().getCanvas().getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2;
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
-        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.DEFAULT));
+        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.PINK));
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
-        r = new Random();
         Patterns.init(game);
+        lastPauseTime = System.nanoTime();
         spawnEnemies();
     }
 
@@ -42,8 +41,19 @@ public class GameState extends State {
         }
     }
 
+    public void setLastPauseTime(long lastPauseTime) {
+        this.lastPauseTime = lastPauseTime;
+    }
+
+    private void pause() {
+        if (System.nanoTime() - lastPauseTime > PauseState.PAUSE_COOLDOWN) {
+            State.setState(new PauseState(game, this));
+        }
+    }
+
     @Override
     public void tick() {
+        if (game.getKeyManager().pause) pause();
         if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4) spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {

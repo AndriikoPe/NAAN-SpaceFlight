@@ -21,8 +21,10 @@ public class Assets {
     public static Clip[] barrageShotClips = new Clip[3];
     public static Clip[] metallicShotClips = new Clip[3];
     public static Clip[] doubleShotClips = new Clip[3];
+    public static Clip[] playerHitClips = new Clip[3];
     // Ultimates sounds
     public static Clip[] blackUltimateShotClips = new Clip[3];
+    public static Clip[] pinkUltimateShotClips = new Clip[3];
     public static Clip orangeUltimateShot, orangeUltimateExplosion, defaultUltimateUse;
 
     private static final int width = 70, height = 100;
@@ -120,6 +122,17 @@ public class Assets {
             doubleShotClips[2] = AudioSystem.getClip();
             doubleShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/doubleShot3.wav")));
 
+            playerHitClips[0] = AudioSystem.getClip();
+            playerHitClips[0].open(AudioSystem.getAudioInputStream(new File("sound/playerHit1.wav")));
+
+            playerHitClips[1] = AudioSystem.getClip();
+            playerHitClips[1].open(AudioSystem.getAudioInputStream(new File("sound/playerHit2.wav")));
+
+            playerHitClips[2] = AudioSystem.getClip();
+            playerHitClips[2].open(AudioSystem.getAudioInputStream(new File("sound/playerHit3.wav")));
+
+            // Ultimates clips
+
             blackUltimateShotClips[0] = AudioSystem.getClip();
             blackUltimateShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot1.wav")));
 
@@ -128,6 +141,15 @@ public class Assets {
 
             blackUltimateShotClips[2] = AudioSystem.getClip();
             blackUltimateShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot3.wav")));
+
+            pinkUltimateShotClips[0] = AudioSystem.getClip();
+            pinkUltimateShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/pinkUltimateShot1.wav")));
+
+            pinkUltimateShotClips[1] = AudioSystem.getClip();
+            pinkUltimateShotClips[1].open(AudioSystem.getAudioInputStream(new File("sound/pinkUltimateShot2.wav")));
+
+            pinkUltimateShotClips[2] = AudioSystem.getClip();
+            pinkUltimateShotClips[2].open(AudioSystem.getAudioInputStream(new File("sound/pinkUltimateShot3.wav")));
 
             orangeUltimateShot = AudioSystem.getClip();
             orangeUltimateShot.open(AudioSystem.getAudioInputStream(new File("sound/orangeUltimateShot.wav")));
@@ -162,8 +184,16 @@ public class Assets {
         playSound(doubleShotClips[r.nextInt(doubleShotClips.length)]);
     }
 
+    public static void playPlayerHitSound() {
+        playSound(playerHitClips[r.nextInt(playerHitClips.length)]);
+    }
+
     public static void playBlackUltimateShotSound() {
         playSound(blackUltimateShotClips[r.nextInt(blackUltimateShotClips.length)]);
+    }
+
+    public static void playPinkUltimateShotSound() {
+        playSound(pinkUltimateShotClips[r.nextInt(pinkUltimateShotClips.length)]);
     }
 
     public static void playSound(Clip sound) {
