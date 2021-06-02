@@ -26,9 +26,9 @@ public class Assets {
     public static Clip orangeUltimateShot, orangeUltimateExplosion, defaultUltimateUse;
 
     private static final int width = 70, height = 100;
-    private static final int PLANET_SIZE = 100;
-    private static final int COIN_WIDTH = 18;
-    private static final int COIN_HEIGHT = 20;
+    public static final int PLANET_SIZE = 100;
+    public static final int COIN_WIDTH = 18;
+    public static final int COIN_HEIGHT = 20;
     private static Random r;
 
     public static void init() {

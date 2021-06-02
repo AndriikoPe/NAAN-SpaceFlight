@@ -45,7 +45,7 @@ public class Bullet extends Entity {
         if (!isFriendly) return;
         for (int i = 0; i < entityManager.getEntities().size(); i++) {
             Entity e = entityManager.getEntities().get(i);
-            if (!e.isFriendly() && !(e instanceof Bullet)) {
+            if (!e.isFriendly() && !(e instanceof Bullet) && !(e instanceof Planet)) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.removeEntity(e);
                     entityManager.addEntity(new Explosion(game, entityManager,

@@ -36,7 +36,13 @@ public class Planet extends Creature{
     }
 
     @Override
+    public Rectangle getBounds() {
+        return new Rectangle(Math.round(x + 0.1f * Assets.PLANET_SIZE), Math.round(y + 0.1f * Assets.PLANET_SIZE),
+                Math.round(0.8f * Assets.PLANET_SIZE), Math.round(0.8f * Assets.PLANET_SIZE));
+    }
+
+    @Override
     public void render(Graphics g) {
-        g.drawImage(planet, Math.round(x), Math.round(y), null);
+        g.drawImage(planet, Math.round(x), Math.round(y), Assets.PLANET_SIZE, Assets.PLANET_SIZE, null);
     }
 }

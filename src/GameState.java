@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.Map;
 import java.util.Random;
 
 public class GameState extends State {
@@ -13,41 +15,36 @@ public class GameState extends State {
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
         r = new Random();
+        Patterns.init(game);
         spawnEnemies();
-        createPlanets();
-
-    }
-
-    private  void createPlanets(){
-        for (int i = 0; i < 6; i++) {
-            entityManager.addEntity(new Planet(game,r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH),
-                    -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT,
-                    100, 100));
-        }
     }
 
     private void spawnEnemies() {
-        int count = r.nextInt(6);
-        for (int i = 0; i < count; i++) {
-            entityManager.addEntity(new ShootingEnemy(
-                    game, r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH),
-                    -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT,
-                    70, 100,
-                    entityManager));
-        }
-
-        count = r.nextInt(20);
-        int coinX = r.nextInt(game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH);
-        int coinY = -r.nextInt(Creature.DEFAULT_CREATURE_HEIGHT) - Creature.DEFAULT_CREATURE_HEIGHT;
-        for (int i = 0; i < count; i++) {
-            entityManager.addEntity(new Coin(game, coinX,
-                    coinY-= 50 , 18, 20));
+        Map<Point2D, ID> map = Patterns.nextPattern();
+        for (Point2D point2D: map.keySet()) {
+            switch (map.get(point2D)){
+                case COIN:
+                    entityManager.addEntity(new Coin(game, (float) point2D.getX(), (float) point2D.getY(),
+                            18, 20));
+                    break;
+                case PLANET:
+                    entityManager.addEntity(new Planet(game, (float) point2D.getX(), (float) point2D.getY(),
+                            Assets.PLANET_SIZE, Assets.PLANET_SIZE));
+                    break;
+                case ENEMY:
+                    entityManager.addEntity(new Enemy(game, (float) point2D.getX(), (float) point2D.getY(),
+                            Enemy.DEFAULT_CREATURE_WIDTH, Enemy.DEFAULT_CREATURE_HEIGHT));
+                    break;
+                case SHOOTING_ENEMY:
+                    entityManager.addEntity(new ShootingEnemy(game, (float) point2D.getX(), (float) point2D.getY(),
+                            Enemy.DEFAULT_CREATURE_WIDTH, Enemy.DEFAULT_CREATURE_HEIGHT, entityManager));
+            }
         }
     }
 
     @Override
     public void tick() {
-        if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 1) spawnEnemies();
+        if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4) spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {
             game.setMenuState();
