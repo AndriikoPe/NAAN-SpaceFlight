@@ -4,6 +4,7 @@ import java.util.Random;
 public class GameState extends State {
     private final EntityManager entityManager;
     private final Random r;
+    private long lastPauseTime;
 
     public GameState(Game game) {
         super(game);
@@ -13,9 +14,9 @@ public class GameState extends State {
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
         r = new Random();
+        lastPauseTime = System.nanoTime();
         spawnEnemies();
         createPlanets();
-
     }
 
     private  void createPlanets(){
@@ -45,8 +46,19 @@ public class GameState extends State {
         }
     }
 
+    public void setLastPauseTime(long lastPauseTime) {
+        this.lastPauseTime = lastPauseTime;
+    }
+
+    private void pause() {
+        if (System.nanoTime() - lastPauseTime > PauseState.PAUSE_COOLDOWN) {
+            State.setState(new PauseState(game, this));
+        }
+    }
+
     @Override
     public void tick() {
+        if (game.getKeyManager().pause) pause();
         if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 1) spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {
