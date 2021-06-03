@@ -40,8 +40,8 @@ public class MenuState extends State {
     public void tick() {
         if (playButtonRect.contains(mouseInput.getX(), mouseInput.getY())) {
             if (mouseInput.getLeftClicked()) {
-//                game.setSelectPlayerState();
-                game.setGameState();
+                game.setSelectPlayerState();
+//                game.setGameState();
             } else {
                 playButtonActive = true;
                 exitButtonActive = false;

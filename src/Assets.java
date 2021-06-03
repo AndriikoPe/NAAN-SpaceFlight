@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Assets {
-    public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack;
+    public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack, playerWhite,
+            playerPurple, playerGray;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
     public static BufferedImage coin0, coin1, coin2, coin3, coin4, coin5;
+    public static BufferedImage gunDarkblue, gunBlue, gunGreen, gunWhite;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static BufferedImage ultimateNotReady, ultimateReady;
@@ -39,15 +41,24 @@ public class Assets {
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("textures/spritesheet.png"));
         SpriteSheet planets = new SpriteSheet(ImageLoader.loadImage("textures/planets.png"));
         SpriteSheet coins = new SpriteSheet(ImageLoader.loadImage("textures/coin.png"));
+        SpriteSheet guns = new SpriteSheet(ImageLoader.loadImage("textures/guns.png"));
 
         ultimateNotReady = ImageLoader.loadImage("textures/ultimateNotReady.png");
         ultimateReady = ImageLoader.loadImage("textures/ultimateReady.png");
 
-        playerBlack = sheet.crop(width * 3, 0, width, height);
-        playerPink = sheet.crop(width * 4, 0, width, height);
-        playerBlue = sheet.crop(width * 5, 0, width, height);
-        playerOrange = sheet.crop(width * 3, height, width, height);
-        playerDefault = sheet.crop(width * 4, height, width, height);
+        playerBlack = sheet.crop(width * 3, height, width, height);
+        playerPink = sheet.crop(width * 4, height, width, height);
+        playerBlue = sheet.crop(width * 5, height, width, height);
+        playerOrange = sheet.crop(width * 3, height * 2, width, height);
+        playerDefault = sheet.crop(width * 4, height * 2, width, height);
+        playerGray = sheet.crop(0, 0, width, height);
+        playerWhite = sheet.crop(width, 0, width, height);
+        playerPurple = sheet.crop(width * 2, 0, width, height);
+
+        gunDarkblue = guns.crop(0, 0, width, height);
+        gunBlue = guns.crop(width, 0, width, height);
+        gunGreen = guns.crop(width * 2, 0, width, height);
+        gunWhite = guns.crop(0, height, width, height);
 
         planetDark = planets.crop(0, 0, PLANET_SIZE, PLANET_SIZE);
         planetOrange = planets.crop(PLANET_SIZE, 0, PLANET_SIZE, PLANET_SIZE);
@@ -56,10 +67,10 @@ public class Assets {
         planetEarth = planets.crop(PLANET_SIZE, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
         planetBlue = planets.crop(PLANET_SIZE * 2, PLANET_SIZE, PLANET_SIZE, PLANET_SIZE);
 
-        enemyRed = sheet.crop(0, 0, width, height);
-        enemyBlack = sheet.crop(width, 0, width, height);
-        enemyBrown = sheet.crop(width * 2, 0, width, height);
-        enemyGreen = sheet.crop(0, height, width, height);
+        enemyRed = sheet.crop(0, height, width, height);
+        enemyBlack = sheet.crop(width, height, width, height);
+        enemyBrown = sheet.crop(width * 2, height, width, height);
+        enemyGreen = sheet.crop(0, height * 2, width, height);
 
         explosionImage = ImageLoader.loadImage("textures/explosion.png");
         bigExplosionImage = ImageLoader.loadImage("textures/bigExplosion.png");
