@@ -27,8 +27,12 @@ public class OrangeUltimateBullet extends Bullet {
             for (int i = 0; i < entityManager.getEntities().size(); i++) {
                 Entity e = entityManager.getEntities().get(i);
                 if (!e.isFriendly()) {
-                    i--;
-                    entityManager.removeEntity(e);
+                    if (!(e instanceof Boss)) {
+                        i--;
+                        entityManager.removeEntity(e);
+                    } else {
+                        e.getHit(this, entityManager);
+                    }
                     entityManager.getPlayer().heal(5);
                 }
             }

@@ -10,6 +10,8 @@ import java.util.Random;
 public class Assets {
     public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
+    public static BufferedImage boss1, boss2, boss3;
+
     public static BufferedImage coin0, coin1, coin2, coin3, coin4, coin5;
     public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
@@ -60,6 +62,8 @@ public class Assets {
         enemyBlack = sheet.crop(width, 0, width, height);
         enemyBrown = sheet.crop(width * 2, 0, width, height);
         enemyGreen = sheet.crop(0, height, width, height);
+
+        boss1 = ImageLoader.loadImage("textures/boss1.png");
 
         explosionImage = ImageLoader.loadImage("textures/explosion.png");
         bigExplosionImage = ImageLoader.loadImage("textures/bigExplosion.png");

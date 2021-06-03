@@ -18,6 +18,7 @@ public class OrangeUltimate extends Ultimate {
                     entityManager.getPlayer().getX() + (entityManager.getPlayer().getWidth()
                             - OrangeUltimateBullet.DEFAULT_ULTIMATE_BULLET_WIDTH) / 2f, entityManager.getPlayer().getY(),
                     Assets.planetBlue);
+            bullet.setDamage(250);
             bullet.setEntityManager(entityManager);
             entityManager.addEntity(bullet);
             readiness = 0;

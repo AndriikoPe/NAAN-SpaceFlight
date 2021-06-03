@@ -1,25 +1,39 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Map;
 
 public class GameState extends State {
     private final EntityManager entityManager;
     private long lastPauseTime;
+    private int wavesCounter;
+
+    private List<Map<Point2D, ID>> currentMap;
+
+    private boolean fightingBoss = false;
+
+    private Boss boss;
 
     public GameState(Game game) {
         super(game);
         int startX = (game.getDisplay().getCanvas().getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2;
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
-        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.PINK));
+        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.ORANGE));
         entityManager.getPlayer().setEntityManager(entityManager);
         entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
         Patterns.init(game);
         lastPauseTime = System.nanoTime();
+        currentMap = Patterns.nextPattern();
+        wavesCounter = 0;
         spawnEnemies();
     }
 
     private void spawnEnemies() {
-        Map<Point2D, ID> map = Patterns.nextPattern();
+        if (wavesCounter >=  1) {//currentMap.size()) {
+            spawnBoss();
+            return;
+        }
+        Map<Point2D, ID> map = currentMap.get(wavesCounter);
         for (Point2D point2D: map.keySet()) {
             switch (map.get(point2D)){
                 case COIN:
@@ -39,6 +53,20 @@ public class GameState extends State {
                             Enemy.DEFAULT_CREATURE_WIDTH, Enemy.DEFAULT_CREATURE_HEIGHT, entityManager));
             }
         }
+        wavesCounter++;
+    }
+
+    private void spawnBoss() {
+        wavesCounter = 0;
+        fightingBoss = true;
+        boss = new Boss(
+                game,
+                (game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2f,
+                -Creature.DEFAULT_CREATURE_HEIGHT,
+                Creature.DEFAULT_CREATURE_WIDTH,
+                Creature.DEFAULT_CREATURE_HEIGHT,
+                10);
+        entityManager.addEntity(boss);
     }
 
     public void setLastPauseTime(long lastPauseTime) {
@@ -54,10 +82,22 @@ public class GameState extends State {
     @Override
     public void tick() {
         if (game.getKeyManager().pause) pause();
-        if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4) spawnEnemies();
+        if (fightingBoss && boss != null) {
+            tickBoss();
+        } else if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4)
+            spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {
             game.setMenuState();
+        }
+    }
+
+    private void tickBoss() {
+        if (boss.getHealth() <= 0) {
+            entityManager.removeEntity(boss);
+            fightingBoss = false;
+            currentMap = Patterns.nextPattern();
+            game.nextLevel();
         }
     }
 

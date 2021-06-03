@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Enemy extends Creature {
     Random r = new Random();
-    private BufferedImage image;
+    private final BufferedImage image;
 
     public Enemy(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
@@ -22,6 +22,15 @@ public class Enemy extends Creature {
             case 3: return Assets.enemyBlack;
         }
         return null;
+    }
+
+    @Override
+    public boolean getHit(Entity e, EntityManager manager) {
+        manager.removeEntity(this);
+        manager.addEntity(new Explosion(game, manager,
+                            Explosion.EXPLOSION_DEFAULT_WIDTH, Explosion.EXPLOSION_DEFAULT_HEIGHT,
+                            this, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL));
+        return true;
     }
 
     @Override

@@ -51,6 +51,10 @@ public class Game implements Runnable {
         }
     }
 
+    public void nextLevel() {
+        background.nextLevel();
+    }
+
     public int getWidth() {
         return width;
     }
