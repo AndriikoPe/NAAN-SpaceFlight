@@ -7,7 +7,8 @@ public class Boss extends Creature {
     private static final int X_POS = 6;
     private static final int Y_POS  = 10;
     private static final int HEALTH_BAR_HEIGHT  = 10;
-
+    public static final int DEFAULT_BOSS_WIDTH = 150,
+            DEFAULT_BOSS_HEIGHT = 150;
 
     public Boss(Game game, float x, float y, int width, int height, int maxHealth) {
         super(game, x, y, width, height);

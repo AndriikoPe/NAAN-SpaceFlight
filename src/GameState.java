@@ -29,7 +29,7 @@ public class GameState extends State {
     }
 
     private void spawnEnemies() {
-        if (wavesCounter >=  1) {//currentMap.size()) {
+        if (wavesCounter >= currentMap.size()) {
             spawnBoss();
             return;
         }
@@ -61,10 +61,10 @@ public class GameState extends State {
         fightingBoss = true;
         boss = new Boss(
                 game,
-                (game.getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2f,
-                -Creature.DEFAULT_CREATURE_HEIGHT,
-                Creature.DEFAULT_CREATURE_WIDTH,
-                Creature.DEFAULT_CREATURE_HEIGHT,
+                (game.getWidth() - Boss.DEFAULT_BOSS_WIDTH) / 2f,
+                -Boss.DEFAULT_BOSS_HEIGHT,
+                Boss.DEFAULT_BOSS_WIDTH,
+                Boss.DEFAULT_BOSS_HEIGHT,
                 10);
         entityManager.addEntity(boss);
     }

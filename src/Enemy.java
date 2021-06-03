@@ -5,13 +5,23 @@ import java.util.Random;
 public class Enemy extends Creature {
     Random r = new Random();
     private final BufferedImage image;
-
+    private static int pointPerHit;
+    
     public Enemy(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
         setHealth(3);
         speed = r.nextInt(2) + 3;
+        pointPerHit = 10;
         this.isFriendly = false;
         this.image = getImage();
+    }
+
+    public static int getPointPerHit() {
+        return pointPerHit;
+    }
+
+    public static void setPointPerHit(int pointPerHit) {
+        Enemy.pointPerHit = pointPerHit;
     }
 
     private BufferedImage getImage() {
@@ -27,6 +37,7 @@ public class Enemy extends Creature {
     @Override
     public boolean getHit(Entity e, EntityManager manager) {
         manager.removeEntity(this);
+        game.addPoints(Enemy.getPointPerHit());
         manager.addEntity(new Explosion(game, manager,
                             Explosion.EXPLOSION_DEFAULT_WIDTH, Explosion.EXPLOSION_DEFAULT_HEIGHT,
                             this, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL));
