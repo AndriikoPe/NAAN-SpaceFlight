@@ -15,8 +15,8 @@ public class Background {
 
     public Background(Game game) {
         this.game = game;
-        bgImage = ImageLoader.loadImage("./textures/background.jpg");
-        bgImageCopy = ImageLoader.loadImage("./textures/background.jpg");
+        bgImage = ImageLoader.loadImage("textures/background4.jpg");
+        bgImageCopy = ImageLoader.loadImage("textures/background4.jpg");
         BACKGROUND_HEIGHT = bgImage.getHeight();
         yPos = game.getHeight() - BACKGROUND_HEIGHT;
         yCopyPos = yPos - BACKGROUND_HEIGHT;
