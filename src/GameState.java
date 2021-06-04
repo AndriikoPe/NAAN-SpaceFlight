@@ -79,7 +79,7 @@ public class GameState extends State {
                 -Boss.DEFAULT_BOSS_HEIGHT,
                 Boss.DEFAULT_BOSS_WIDTH,
                 Boss.DEFAULT_BOSS_HEIGHT,
-                10);
+                1000);
         entityManager.addEntity(boss);
     }
 

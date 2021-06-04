@@ -17,6 +17,7 @@ public class Player extends Creature {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
         maxHealth = MAX_PLAYER_HEALTH;
         initPlayer(selection);
+        speed = 4.0f;
     }
 
     public void heal(int amount) {
