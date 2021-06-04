@@ -14,6 +14,7 @@ public class MetallicWeapon extends Weapon {
                     Assets.playerPink);
             bullet.setEntityManager(entityManager);
             bullet.setDestroyable(false);
+            bullet.setDamage(45);
             entityManager.addEntity(bullet);
             Assets.playMetallicShotSound();
             lastShotTime = System.nanoTime();

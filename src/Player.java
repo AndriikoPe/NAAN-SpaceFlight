@@ -17,7 +17,7 @@ public class Player extends Creature {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
         maxHealth = MAX_PLAYER_HEALTH;
         initPlayer(selection);
-        speed = 4.0f;
+        speed = 4.3f;
     }
 
     public void heal(int amount) {
@@ -79,6 +79,10 @@ public class Player extends Creature {
         ultimate.setEntityManager(entityManager);
     }
 
+    public void makeFasterBy(float amount) {
+        if (speed + amount > 0) speed += amount;
+    }
+
     @Override
     public void tick() {
         getInput();
@@ -88,12 +92,14 @@ public class Player extends Creature {
             if (!e.isFriendly()) {
                 if (getBounds().intersects(e.getBounds())) {
                     Assets.playPlayerHitSound();
-                    entityManager.addEntity(new Explosion(game, entityManager,
-                            e.getWidth(), e.getWidth(), e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL / 2));
+                    Explosion explosion = new Explosion(game, entityManager,
+                            e.getWidth(), e.getWidth(), e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL / 2);
+                    explosion.setShowTextDamage(true);
+                    entityManager.addEntity(explosion);
                     entityManager.getEntities().remove(e);
-                    health -= 20;
+                    health -= e.getDamage();
                 }
-            }else if (e instanceof Coin){
+            } else if (e instanceof Coin) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.getEntities().remove(e);
                     game.addPoints(1);
