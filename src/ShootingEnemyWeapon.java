@@ -17,6 +17,7 @@ public class ShootingEnemyWeapon extends Weapon {
                     Assets.playerBlue);
             bullet.setEntityManager(entityManager);
             bullet.setFriendly(false);
+            bullet.setDamage(15);
             entityManager.addEntity(bullet);
             lastShotTime = System.nanoTime();
         }

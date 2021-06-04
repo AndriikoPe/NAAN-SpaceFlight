@@ -90,10 +90,12 @@ public class Player extends Creature {
             if (!e.isFriendly()) {
                 if (getBounds().intersects(e.getBounds())) {
                     Assets.playPlayerHitSound();
-                    entityManager.addEntity(new Explosion(game, entityManager,
-                            e.getWidth(), e.getWidth(), e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL / 2));
+                    Explosion explosion = new Explosion(game, entityManager,
+                            e.getWidth(), e.getWidth(), e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL / 2);
+                    explosion.setShowTextDamage(true);
+                    entityManager.addEntity(explosion);
                     entityManager.getEntities().remove(e);
-                    health -= 20;
+                    health -= e.getDamage();
                 }
             } else if (e instanceof Coin) {
                 if (getBounds().intersects(e.getBounds())) {

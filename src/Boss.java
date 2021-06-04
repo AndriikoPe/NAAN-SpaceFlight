@@ -96,6 +96,11 @@ public class Boss extends Creature {
     public boolean getHit(Entity e, EntityManager manager) {
         health -= e.getDamage();
         entityManager.removeEntity(e);
+        Explosion explosion = new Explosion(game, manager,
+                Explosion.EXPLOSION_DEFAULT_WIDTH / 2, Explosion.EXPLOSION_DEFAULT_HEIGHT / 2,
+                e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL);
+        explosion.setShowTextDamage(true);
+        manager.addEntity(explosion);
         if (health <= 0) {
             health = 0;
             game.addPoints(250 + 100 * bossCounter);

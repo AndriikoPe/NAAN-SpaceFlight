@@ -7,8 +7,8 @@ public class Planet extends Creature{
 
     public Planet(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
-        setHealth(4);
         this.isFriendly = false;
+        damage = 35;
         randomPlanets();
     }
 
