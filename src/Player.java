@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Creature {
     public static final int MAX_PLAYER_HEALTH = 100;
-    private int maxHealth;
+    private final int maxHealth;
     private EntityManager entityManager;
     private BufferedImage playerImage;
     private Weapon weapon;
@@ -11,10 +11,6 @@ public class Player extends Creature {
 
     public int getMaxHealth() {
         return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
     }
 
     public Player(Game game, float x, float y, Option selection) {

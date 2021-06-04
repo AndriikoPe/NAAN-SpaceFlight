@@ -2,9 +2,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Coin extends Creature{
-    private final BufferedImage[] coins = new BufferedImage[6];
     private final Animation anim;
-    private Game game;
+    private final Game game;
+
     public Coin(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
         this.game = game;
@@ -12,6 +12,7 @@ public class Coin extends Creature{
         this.height = 20;
         isFriendly = true;
 
+        BufferedImage[] coins = new BufferedImage[6];
         coins[0] = Assets.coin0;
         coins[1] = Assets.coin1;
         coins[2] = Assets.coin2;

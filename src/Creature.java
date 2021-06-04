@@ -12,30 +12,6 @@ public abstract class Creature extends Entity {
         this.health = health;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getxMove() {
-        return xMove;
-    }
-
-    public void setxMove(float xMove) {
-        this.xMove = xMove;
-    }
-
-    public float getyMove() {
-        return yMove;
-    }
-
-    public void setyMove(float yMove) {
-        this.yMove = yMove;
-    }
-
     public Creature(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
         health = DEFAULT_HEALTH;

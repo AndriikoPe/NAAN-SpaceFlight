@@ -1,10 +1,18 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.Map;
 
 public class GameState extends State {
     private final EntityManager entityManager;
     private long lastPauseTime;
+    private int wavesCounter;
+
+    private List<Map<Point2D, ID>> currentMap;
+
+    private boolean fightingBoss = false;
+
+    private Boss boss;
 
     public GameState(Game game, SelectingOption player, SelectingOption gun) {
         super(game);
@@ -15,6 +23,8 @@ public class GameState extends State {
         entityManager.getPlayer().setWeapon(initGun(gun));
         Patterns.init(game);
         lastPauseTime = System.nanoTime();
+        currentMap = Patterns.nextPattern();
+        wavesCounter = 0;
         spawnEnemies();
     }
 
@@ -33,7 +43,11 @@ public class GameState extends State {
     }
 
     private void spawnEnemies() {
-        Map<Point2D, ID> map = Patterns.nextPattern();
+        if (wavesCounter >= currentMap.size()) {
+            spawnBoss();
+            return;
+        }
+        Map<Point2D, ID> map = currentMap.get(wavesCounter);
         for (Point2D point2D: map.keySet()) {
             switch (map.get(point2D)){
                 case COIN:
@@ -53,6 +67,20 @@ public class GameState extends State {
                             Enemy.DEFAULT_CREATURE_WIDTH, Enemy.DEFAULT_CREATURE_HEIGHT, entityManager));
             }
         }
+        wavesCounter++;
+    }
+
+    private void spawnBoss() {
+        wavesCounter = 0;
+        fightingBoss = true;
+        boss = new Boss(
+                game,
+                (game.getWidth() - Boss.DEFAULT_BOSS_WIDTH) / 2f,
+                -Boss.DEFAULT_BOSS_HEIGHT,
+                Boss.DEFAULT_BOSS_WIDTH,
+                Boss.DEFAULT_BOSS_HEIGHT,
+                10);
+        entityManager.addEntity(boss);
     }
 
     public void setLastPauseTime(long lastPauseTime) {
@@ -68,10 +96,22 @@ public class GameState extends State {
     @Override
     public void tick() {
         if (game.getKeyManager().pause) pause();
-        if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4) spawnEnemies();
+        if (fightingBoss && boss != null) {
+            tickBoss();
+        } else if (entityManager.getEntities().stream().filter(e -> !e.isFriendly()).count() < 4)
+            spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {
             game.setMenuState();
+        }
+    }
+
+    private void tickBoss() {
+        if (boss.getHealth() <= 0) {
+            entityManager.removeEntity(boss);
+            fightingBoss = false;
+            currentMap = Patterns.nextPattern();
+            game.nextLevel();
         }
     }
 

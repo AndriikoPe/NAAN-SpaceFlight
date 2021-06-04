@@ -227,8 +227,9 @@ public class Patterns {
         map.put(new Point(xx, yy), ID.COIN);
     }
 
-    public static Map<Point2D, ID> nextPattern() {
-        return patterns.get(r.nextInt(patterns.size()));
+    public static List<Map<Point2D, ID>> nextPattern() {
+        Collections.shuffle(patterns);
+        return patterns;
     }
 }
 

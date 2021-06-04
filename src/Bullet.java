@@ -19,6 +19,7 @@ public class Bullet extends Entity {
         // TODO: - Implement selecting bullet. Default for now.
         this.bulletImg = bulletImg;
         healPerHit = 1;
+        damage = 20;
     }
 
     public void setHealPerHit(int healPerHit) {
@@ -45,16 +46,10 @@ public class Bullet extends Entity {
         if (!isFriendly) return;
         for (int i = 0; i < entityManager.getEntities().size(); i++) {
             Entity e = entityManager.getEntities().get(i);
-            if (!e.isFriendly() && !(e instanceof Bullet) && !(e instanceof Planet)) {
-                if (getBounds().intersects(e.getBounds())) {
-                    entityManager.removeEntity(e);
-                    entityManager.addEntity(new Explosion(game, entityManager,
-                            Explosion.EXPLOSION_DEFAULT_WIDTH, Explosion.EXPLOSION_DEFAULT_HEIGHT,
-                            e, Assets.explosionImage, Explosion.EXPLOSION_DEFAULT_TTL));
-                    entityManager.getPlayer().heal(healPerHit);
-                    if (isDestroyable) entityManager.removeEntity(this);
-                    Assets.playExplosionSound();
-                }
+            if (!e.isFriendly() && getBounds().intersects(e.getBounds()) && e.getHit(this, entityManager)) {
+                entityManager.getPlayer().heal(healPerHit);
+                if (isDestroyable) entityManager.removeEntity(this);
+                Assets.playExplosionSound();
             }
         }
     }

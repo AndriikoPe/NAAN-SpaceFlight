@@ -6,6 +6,7 @@ public abstract class Entity {
     protected int width, height;
     protected boolean isOffscreen;
     protected boolean isFriendly;
+    protected int damage;
 
     public Entity(Game game, float x, float y, int width, int height) {
         this.x = x;
@@ -16,6 +17,18 @@ public abstract class Entity {
         isOffscreen = false;
         isFriendly = true;
         bounds = new Rectangle(Math.round(x), Math.round(y), width, height);
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public boolean getHit(Entity e, EntityManager manager) {
+        return false;
     }
 
     public boolean isFriendly() {
