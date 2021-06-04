@@ -35,16 +35,18 @@ public class Player extends Creature {
                 playerImage = Assets.playerDefault;
                 break;
             case PLAYER_BLUE:
+                ultimate = new BlueUltimate(game);
                 playerImage = Assets.playerBlue;
-                //TODO: - blue ultimate.
                 break;
             case PLAYER_PURPLE:
                 playerImage = Assets.playerPurple;
                 break;
             case PLAYER_GRAY:
+
                 playerImage = Assets.playerGray;
                 break;
             case PLAYER_WHITE:
+
                 playerImage = Assets.playerWhite;
                 break;
             case PLAYER_PINK:
