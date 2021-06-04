@@ -40,7 +40,7 @@ public class SelectGunState extends State {
                 symbols[1] == 1));
         guns.put(listOfGuns.get(2), new Triple<>("Triple shot!",
                 15000, symbols[2] == 1));
-        guns.put(listOfGuns.get(3), new Triple<>("Massive shot that \ndoesn`t get destroyed!", 12000,
+        guns.put(listOfGuns.get(3), new Triple<>("Massive shot that \ndoesn't get destroyed!", 12000,
                 symbols[3] == 1));
         buttonRect = new Rectangle(game.getWidth() / 2 - 150, 650, 300, 120);
     }

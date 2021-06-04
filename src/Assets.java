@@ -11,7 +11,7 @@ public class Assets {
     public static BufferedImage playerDefault, playerPink, playerBlue, playerOrange, playerBlack, playerWhite,
             playerPurple, playerGray;
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
-    public static BufferedImage boss1, boss2, boss3;
+    public static BufferedImage boss1Left, boss1Right, boss2Left, boss2Right, boss3Left, boss3Right;
 
     public static BufferedImage coin0, coin1, coin2, coin3, coin4, coin5;
     public static BufferedImage gunDarkblue, gunBlue, gunGreen, gunWhite;
@@ -27,6 +27,8 @@ public class Assets {
     public static Clip[] metallicShotClips = new Clip[3];
     public static Clip[] doubleShotClips = new Clip[3];
     public static Clip[] playerHitClips = new Clip[3];
+    public static Clip bossSpawnClip;
+
     // Ultimates sounds
     public static Clip[] blackUltimateShotClips = new Clip[3];
     public static Clip[] pinkUltimateShotClips = new Clip[3];
@@ -45,6 +47,7 @@ public class Assets {
         SpriteSheet planets = new SpriteSheet(ImageLoader.loadImage("textures/planets.png"));
         SpriteSheet coins = new SpriteSheet(ImageLoader.loadImage("textures/coin.png"));
         SpriteSheet guns = new SpriteSheet(ImageLoader.loadImage("textures/guns.png"));
+        SpriteSheet bosses = new SpriteSheet(ImageLoader.loadImage("textures/bossesSheet.png"));
 
         ultimateNotReady = ImageLoader.loadImage("textures/ultimateNotReady.png");
         ultimateReady = ImageLoader.loadImage("textures/ultimateReady.png");
@@ -75,7 +78,12 @@ public class Assets {
         enemyBrown = sheet.crop(width * 2, height, width, height);
         enemyGreen = sheet.crop(0, height * 2, width, height);
 
-        boss1 = ImageLoader.loadImage("textures/boss1.png");
+        boss1Right = bosses.crop(0, 0, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
+        boss1Left = bosses.crop(Boss.DEFAULT_BOSS_WIDTH, 0, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
+        boss2Right = bosses.crop(Boss.DEFAULT_BOSS_WIDTH * 2, 0, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
+        boss2Left = bosses.crop(Boss.DEFAULT_BOSS_WIDTH * 2, Boss.DEFAULT_BOSS_HEIGHT, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
+        boss3Right = bosses.crop(Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
+        boss3Left = bosses.crop(0, Boss.DEFAULT_BOSS_HEIGHT, Boss.DEFAULT_BOSS_WIDTH, Boss.DEFAULT_BOSS_HEIGHT);
 
         explosionImage = ImageLoader.loadImage("textures/explosion.png");
         bigExplosionImage = ImageLoader.loadImage("textures/bigExplosion.png");
@@ -152,7 +160,11 @@ public class Assets {
             playerHitClips[2] = AudioSystem.getClip();
             playerHitClips[2].open(AudioSystem.getAudioInputStream(new File("sound/playerHit3.wav")));
 
-            // Ultimates clips
+            // Boss clips.
+            bossSpawnClip = AudioSystem.getClip();
+            bossSpawnClip.open(AudioSystem.getAudioInputStream(new File("sound/bossSound.wav")));
+
+            // Ultimates clips.
 
             blackUltimateShotClips[0] = AudioSystem.getClip();
             blackUltimateShotClips[0].open(AudioSystem.getAudioInputStream(new File("sound/blackUltimateShot1.wav")));

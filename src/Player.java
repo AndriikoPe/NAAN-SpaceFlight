@@ -17,7 +17,7 @@ public class Player extends Creature {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
         maxHealth = MAX_PLAYER_HEALTH;
         initPlayer(selection);
-        speed = 4.0f;
+        speed = 4.3f;
     }
 
     public void heal(int amount) {
@@ -77,6 +77,10 @@ public class Player extends Creature {
         ultimate.setEntityManager(entityManager);
     }
 
+    public void makeFasterBy(float amount) {
+        if (speed + amount > 0) speed += amount;
+    }
+
     @Override
     public void tick() {
         getInput();
@@ -91,7 +95,7 @@ public class Player extends Creature {
                     entityManager.getEntities().remove(e);
                     health -= 20;
                 }
-            }else if (e instanceof Coin){
+            } else if (e instanceof Coin) {
                 if (getBounds().intersects(e.getBounds())) {
                     entityManager.getEntities().remove(e);
                     game.addPoints(1);

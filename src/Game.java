@@ -15,15 +15,7 @@ public class Game implements Runnable {
     private Thread thread;
     private int points;
 
-    private BufferStrategy bs;
-    private Graphics g;
-
     private Background background;
-    // States.
-    private State gameState;
-    private State menuState;
-    private State selectPlayerState;
-    private State selectGunState;
 
     // Input.
     private final KeyManager keyManager;
@@ -74,8 +66,7 @@ public class Game implements Runnable {
         Assets.init();
 
         background = new Background(this);
-        menuState = new MenuState(this);
-        State.setState(menuState);
+        setMenuState();
         try {
             List<String> score = Files.readAllLines(Paths.get("Score.txt"));
             if(score.size() >= 1) points = Integer.parseInt(score.get(0));
@@ -84,28 +75,31 @@ public class Game implements Runnable {
         }
     }
 
-    public void setGameState(SelectingOption player, SelectingOption gun) {
-        gameState = new GameState(this, player, gun);
-        State.setState(gameState);
+    public void restart() {
+        background = new Background(this);
+        Boss.bossCounter = 0;
+        Enemy.setPointPerHit(Enemy.DEFAULT_POINTS_PER_HIT);
+        setMenuState();
+    }
 
-//        MouseInput input = ((MenuState) menuState).getMouseInput();
-//        display.getCanvas().removeMouseListener(input);
-//        display.getCanvas().removeMouseMotionListener(input);
+    public void setGameState(SelectingOption player, SelectingOption gun) {
+        State gameState = new GameState(this, player, gun);
+        State.setState(gameState);
     }
 
     public void setMenuState() {
-        menuState = new MenuState(this);
+        State menuState = new MenuState(this);
         State.setState(menuState);
     }
 
     public void setSelectPlayerState(){
-        selectPlayerState = new SelectPlayerState(this);
+        State selectPlayerState = new SelectPlayerState(this);
         State.setState(selectPlayerState);
 
     }
 
     public void setSelectGunState(SelectingOption selection){
-        selectGunState = new SelectGunState(this, selection);
+        State selectGunState = new SelectGunState(this, selection);
         State.setState(selectGunState);
 
     }
@@ -121,12 +115,12 @@ public class Game implements Runnable {
     }
 
     private void render() {
-        bs = display.getCanvas().getBufferStrategy();
+        BufferStrategy bs = display.getCanvas().getBufferStrategy();
         if (bs == null) {
             display.getCanvas().createBufferStrategy(3);
             return;
         }
-        g = bs.getDrawGraphics();
+        Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, width, height);
         background.render(g);
         if (State.getState() != null) State.getState().render(g);

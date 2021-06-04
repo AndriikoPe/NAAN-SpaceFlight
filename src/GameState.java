@@ -43,9 +43,11 @@ public class GameState extends State {
     }
 
     private void spawnEnemies() {
-        if (wavesCounter >= currentMap.size()) {
-            spawnBoss();
-            return;
+        if (wavesCounter >= 1) {
+            if (Boss.bossCounter < Boss.TOTAL_BOSSES) {
+                spawnBoss();
+                return;
+            } else wavesCounter = 0;
         }
         Map<Point2D, ID> map = currentMap.get(wavesCounter);
         for (Point2D point2D: map.keySet()) {
@@ -71,6 +73,7 @@ public class GameState extends State {
     }
 
     private void spawnBoss() {
+        Assets.playSound(Assets.bossSpawnClip);
         wavesCounter = 0;
         fightingBoss = true;
         boss = new Boss(
@@ -79,7 +82,8 @@ public class GameState extends State {
                 -Boss.DEFAULT_BOSS_HEIGHT,
                 Boss.DEFAULT_BOSS_WIDTH,
                 Boss.DEFAULT_BOSS_HEIGHT,
-                1000);
+                1000 + Boss.bossCounter * 200,
+                entityManager);
         entityManager.addEntity(boss);
     }
 
@@ -102,7 +106,7 @@ public class GameState extends State {
             spawnEnemies();
         entityManager.tick();
         if (entityManager.getPlayer().getHealth() <= 0) {
-            game.setMenuState();
+            game.restart();
         }
     }
 
