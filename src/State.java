@@ -3,6 +3,7 @@ import java.awt.*;
 public abstract class State {
     private static State currentState = null;
 
+
     public static void setState(State state) {
         currentState = state;
     }

@@ -17,11 +17,6 @@ public class MenuState extends State {
     private final Rectangle playButtonRect;
     private final Rectangle exitButtonRect;
 
-    private final MouseInput mouseInput;
-
-    public MouseInput getMouseInput() {
-        return mouseInput;
-    }
 
     public MenuState(Game game) {
         super(game);
@@ -31,23 +26,19 @@ public class MenuState extends State {
         Y_EXIT_BUTTON_POS = (game.getHeight() - EXIT_BUTTON_HEIGHT) * 3 / 4;
         playButtonRect = new Rectangle(X_PLAY_BUTTON_POS, Y_PLAY_BUTTON_POS, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         exitButtonRect = new Rectangle(X_EXIT_BUTTON_POS, Y_EXIT_BUTTON_POS, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-        mouseInput = new MouseInput();
-        game.getDisplay().getCanvas().addMouseListener(mouseInput);
-        game.getDisplay().getCanvas().addMouseMotionListener(mouseInput);
     }
 
     @Override
     public void tick() {
-        if (playButtonRect.contains(mouseInput.getX(), mouseInput.getY())) {
-            if (mouseInput.getLeftClicked()) {
+        if (playButtonRect.contains(game.mouseInput.getX(), game.mouseInput.getY())) {
+            if (game.mouseInput.getLeftClicked()) {
                 game.setSelectPlayerState();
-//                game.setGameState();
             } else {
                 playButtonActive = true;
                 exitButtonActive = false;
             }
-        } else if (exitButtonRect.contains(mouseInput.getX(), mouseInput.getY())) {
-            if (mouseInput.getLeftClicked()) {
+        } else if (exitButtonRect.contains(game.mouseInput.getX(), game.mouseInput.getY())) {
+            if (game.mouseInput.getLeftClicked()) {
                 game.getDisplay().getFrame().dispose();
                 System.exit(0);
             } else {

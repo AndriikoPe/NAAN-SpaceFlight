@@ -1,59 +1,52 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
-public class SelectPlayerState extends State {
+public class SelectGunState extends State {
 
-    private Map<SelectingOption, Triple<String, Integer, Boolean>> players;
+
+    private Map<SelectingOption, Triple<String, Integer, Boolean>> guns;
     private Game game;
     private int angle;
     private boolean nextCharacter;
     private int direction;
     private Integer[] symbols;
-    private List<SelectingOption> listOfPlayers;
+    private List<SelectingOption> listOfGuns;
     private static final Font fontDescription = new Font("Courier New", Font.BOLD, 24);
     private boolean buttonActive = false;
     private final Rectangle buttonRect;
     private boolean showNotEnough = false;
     private SelectingOption[] options;
+    private final long loadingTime;
+    private static final long TIME_TO_LOAD = 1000000000;
+    private final SelectingOption selection;
 
-
-    public SelectPlayerState(Game game) {
+    public SelectGunState(Game game, SelectingOption selection) {
         super(game);
         this.game = game;
-        symbols = SelectingOption.readInfo("PurchasedPlayers.txt");
-        players = new HashMap<>();
-        options = new SelectingOption[8];
-        listOfPlayers = new ArrayList<>();
-        options[0] = new SelectingOption(game, Assets.playerDefault, Math.toRadians(0), Option.PLAYER_DEFAULT);
-        options[1] = new SelectingOption(game, Assets.playerBlack, Math.toRadians(45), Option.PLAYER_BLACK);
-        options[2] = new SelectingOption(game, Assets.playerOrange, Math.toRadians(90), Option.PLAYER_ORANGE);
-        options[3] = new SelectingOption(game, Assets.playerPink, Math.toRadians(135), Option.PLAYER_PINK);
-        options[4] = new SelectingOption(game, Assets.playerBlue, Math.toRadians(180), Option.PLAYER_BLUE);
-        options[5] = new SelectingOption(game, Assets.playerWhite, Math.toRadians(225), Option.PLAYER_WHITE);
-        options[6] = new SelectingOption(game, Assets.playerPurple, Math.toRadians(270), Option.PLAYER_PURPLE);
-        options[7] = new SelectingOption(game, Assets.playerGray, Math.toRadians(315), Option.PLAYER_GRAY);
-        listOfPlayers.addAll(Arrays.asList(options));
-        players.put(listOfPlayers.get(0), new Triple<>("Fully heals itself!", 0, symbols[0] == 1));
-        players.put(listOfPlayers.get(1), new Triple<>("Triple shoot with 10 bullets!", 11000,
+        this.selection = selection;
+        loadingTime = System.nanoTime();
+        symbols = SelectingOption.readInfo("PurchasedGuns.txt");
+        guns = new HashMap<>();
+        options = new SelectingOption[4];
+        listOfGuns = new ArrayList<>();
+        options[0] = new SelectingOption(game, Assets.gunBlue, Math.toRadians(0), Option.GUN_DEFAULT);
+        options[1] = new SelectingOption(game, Assets.gunGreen, Math.toRadians(90), Option.GUN_DOUBLE);
+        options[2] = new SelectingOption(game, Assets.gunDarkblue, Math.toRadians(180), Option.GUN_TRIPLE);
+        options[3] = new SelectingOption(game, Assets.gunWhite, Math.toRadians(270), Option.GUN_MASSIVE);
+        listOfGuns.addAll(Arrays.asList(options));
+        guns.put(listOfGuns.get(0), new Triple<>("Fast single shot!", 0, symbols[0] == 1));
+        guns.put(listOfGuns.get(1), new Triple<>("Fast double shot!", 10000,
                 symbols[1] == 1));
-        players.put(listOfPlayers.get(2), new Triple<>("Shoot a giant bomb,\nthat blows up everything!",
-                10000, symbols[2] == 1));
-        players.put(listOfPlayers.get(3), new Triple<>("Your next 5 shoots \nwill be fivefold!", 5000,
+        guns.put(listOfGuns.get(2), new Triple<>("Triple shot!",
+                15000, symbols[2] == 1));
+        guns.put(listOfGuns.get(3), new Triple<>("Massive shot that \ndoesn`t get destroyed!", 12000,
                 symbols[3] == 1));
-        players.put(listOfPlayers.get(4), new Triple<>("", 8000, symbols[4] == 1));
-        players.put(listOfPlayers.get(5), new Triple<>("", 9000, symbols[5] == 1));
-        players.put(listOfPlayers.get(6), new Triple<>("", 11000, symbols[6] == 1));
-        players.put(listOfPlayers.get(7), new Triple<>("", 10000, symbols[7] == 1));
         buttonRect = new Rectangle(game.getWidth() / 2 - 150, 650, 300, 120);
     }
 
     private SelectingOption getChosen() {
-        return listOfPlayers.get(listOfPlayers.size() - 1);
+        return listOfGuns.get(listOfGuns.size() - 1);
     }
 
     @Override
@@ -72,25 +65,26 @@ public class SelectPlayerState extends State {
             while (angle < 0) {
                 angle += 360;
             }
-            if (angle % 10 == 0) {
+            if (angle % 60 == 0) {
                 nextCharacter = false;
             }
         }
-        listOfPlayers.forEach(player -> player.tick(Math.toRadians(angle - 45)));
+        listOfGuns.forEach(player -> player.tick(Math.toRadians(angle - 45)));
+        if(System.nanoTime() - loadingTime < TIME_TO_LOAD) return;
         checkMouse();
     }
 
-    private void checkMouse(){
+    private void checkMouse() {
         if (buttonRect.contains(game.mouseInput.getX(), game.mouseInput.getY())) {
             if (game.mouseInput.getLeftClicked()) {
-                if (!players.get(getChosen()).isPurchased) {
-                    if (game.getPoints() < players.get(getChosen()).price) {
+                if (!guns.get(getChosen()).isPurchased) {
+                    if (game.getPoints() < guns.get(getChosen()).price) {
                         showNotEnough = true;
                     } else {
                         buy();
                     }
                 } else
-                    game.setSelectGunState(getChosen());
+                    game.setGameState(selection, getChosen());
             } else {
                 buttonActive = true;
             }
@@ -100,15 +94,15 @@ public class SelectPlayerState extends State {
     }
 
     private void buy() {
-        game.addPoints(-players.get(getChosen()).price);
-        players.get(getChosen()).isPurchased = true;
-        SelectingOption.createInfo("PurchasedPlayers.txt", options, players);
+        game.addPoints(-guns.get(getChosen()).price);
+        guns.get(getChosen()).isPurchased = true;
+        SelectingOption.createInfo("PurchasedGuns.txt", options, guns);
     }
 
     @Override
     public void render(Graphics g) {
-        Collections.sort(listOfPlayers);
-        for (SelectingOption player : listOfPlayers) {
+        Collections.sort(listOfGuns);
+        for (SelectingOption player : listOfGuns) {
             player.render((Graphics2D) g);
         }
         SelectingOption chosenPlayer = getChosen();
@@ -118,13 +112,13 @@ public class SelectPlayerState extends State {
                 chosenPlayer.getWidth(), chosenPlayer.getHeight(), 10, 10);
         g.setFont(fontDescription);
         g.setColor(Color.WHITE);
-        String description = players.get(getChosen()).description;
+        String description = guns.get(getChosen()).description;
         int yPosition = 200;
         for (String l : description.split("\n")) {
             g.drawString(l, (game.getWidth() - g.getFontMetrics().stringWidth(l)) / 2, yPosition);
             yPosition += g.getFontMetrics().getHeight();
         }
-        if (players.get(getChosen()).isPurchased) {
+        if (guns.get(getChosen()).isPurchased) {
             g.drawImage(buttonActive ? Assets.startActive : Assets.startInactive,
                     game.getWidth() / 2 - 150,
                     650,
@@ -132,14 +126,14 @@ public class SelectPlayerState extends State {
                     120,
                     null);
         } else {
-            if (game.getPoints() < players.get(getChosen()).price) {
+            if (game.getPoints() < guns.get(getChosen()).price) {
                 g.setColor(Color.red);
                 if (showNotEnough) {
                     String text = "Not enough money!";
                     g.drawString(text, (game.getWidth() - g.getFontMetrics().stringWidth(text)) / 2, 630);
                 }
             }
-            String price = players.get(getChosen()).price + "";
+            String price = guns.get(getChosen()).price + "";
             g.drawString(price, (game.getWidth() - g.getFontMetrics().stringWidth(price) - Assets.COIN_WIDTH) / 2,
                     600);
             g.drawImage(Assets.coin0, (game.getWidth() - g.getFontMetrics().stringWidth(price) - Assets.COIN_WIDTH) / 2
@@ -151,17 +145,5 @@ public class SelectPlayerState extends State {
                     120,
                     null);
         }
-    }
-}
-
-class Triple<K, V, M> {
-    public final K description;
-    public final V price;
-    public M isPurchased;
-
-    public Triple(K description, V price, M isPurchased) {
-        this.description = description;
-        this.price = price;
-        this.isPurchased = isPurchased;
     }
 }

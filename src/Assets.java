@@ -13,7 +13,8 @@ public class Assets {
     public static BufferedImage enemyRed, enemyBlack, enemyBrown, enemyGreen;
     public static BufferedImage coin0, coin1, coin2, coin3, coin4, coin5;
     public static BufferedImage gunDarkblue, gunBlue, gunGreen, gunWhite;
-    public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive;
+    public static BufferedImage playButtonActive, playButtonInactive, exitButtonActive, exitButtonInactive, buy,
+            buyActive, startInactive, startActive;
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static BufferedImage ultimateNotReady, ultimateReady;
     public static BufferedImage explosionImage, bigExplosionImage;
@@ -86,6 +87,11 @@ public class Assets {
         playButtonInactive = ImageLoader.loadImage("textures/play_button_inactive.png");
         exitButtonActive = ImageLoader.loadImage("textures/exit_button_active.png");
         exitButtonInactive = ImageLoader.loadImage("textures/exit_button_inactive.png");
+        buy = ImageLoader.loadImage("textures/buy.png");
+        buyActive = ImageLoader.loadImage("textures/buyActive.png");
+        startInactive = ImageLoader.loadImage("textures/startInactive.png");
+        startActive = ImageLoader.loadImage("textures/startActive.png");
+
 
         try {
             explosionClips[0] = AudioSystem.getClip();

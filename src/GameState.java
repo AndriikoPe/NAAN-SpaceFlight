@@ -6,16 +6,30 @@ public class GameState extends State {
     private final EntityManager entityManager;
     private long lastPauseTime;
 
-    public GameState(Game game) {
+    public GameState(Game game, SelectingOption player, SelectingOption gun) {
         super(game);
         int startX = (game.getDisplay().getCanvas().getWidth() - Creature.DEFAULT_CREATURE_WIDTH) / 2;
         int startY = game.getDisplay().getCanvas().getHeight() - Creature.DEFAULT_CREATURE_HEIGHT - 20;
-        entityManager = new EntityManager(game, new Player(game, startX, startY, PlayerSelection.PINK));
+        entityManager = new EntityManager(game, new Player(game, startX, startY, player.getOption()));
         entityManager.getPlayer().setEntityManager(entityManager);
-        entityManager.getPlayer().setWeapon(new DoubleWeapon(game, entityManager));
+        entityManager.getPlayer().setWeapon(initGun(gun));
         Patterns.init(game);
         lastPauseTime = System.nanoTime();
         spawnEnemies();
+    }
+
+    private Weapon initGun(SelectingOption gun){
+        switch (gun.getOption()){
+            case GUN_DEFAULT:
+                return new DefaultWeapon(game, entityManager);
+            case GUN_DOUBLE:
+                return new DoubleWeapon(game, entityManager);
+            case GUN_TRIPLE:
+                return new BarrageWeapon(game, entityManager);
+            case GUN_MASSIVE:
+                return new MetallicWeapon(game, entityManager);
+        }
+        return null;
     }
 
     private void spawnEnemies() {

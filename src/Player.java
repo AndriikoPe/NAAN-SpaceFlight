@@ -17,7 +17,7 @@ public class Player extends Creature {
         this.maxHealth = maxHealth;
     }
 
-    public Player(Game game, float x, float y, PlayerSelection selection) {
+    public Player(Game game, float x, float y, Option selection) {
         super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
         maxHealth = MAX_PLAYER_HEALTH;
         initPlayer(selection);
@@ -30,25 +30,35 @@ public class Player extends Creature {
             health += amount;
     }
 
-    private void initPlayer(PlayerSelection selection) {
+    private void initPlayer(Option selection) {
         // TODO: - implement player initialization based on selection.
         switch (selection) {
-            case DEFAULT:
+            case PLAYER_DEFAULT:
                 ultimate = new DefaultUltimate(game);
                 playerImage = Assets.playerDefault;
                 break;
-            case BLUE:
+            case PLAYER_BLUE:
+                playerImage = Assets.playerBlue;
                 //TODO: - blue ultimate.
                 break;
-            case PINK:
+            case PLAYER_PURPLE:
+                playerImage = Assets.playerPurple;
+                break;
+            case PLAYER_GRAY:
+                playerImage = Assets.playerGray;
+                break;
+            case PLAYER_WHITE:
+                playerImage = Assets.playerWhite;
+                break;
+            case PLAYER_PINK:
                 ultimate = new PinkUltimate(game);
                 playerImage = Assets.playerPink;
                 break;
-            case BLACK:
+            case PLAYER_BLACK:
                 ultimate = new BlackUltimate(game);
                 playerImage = Assets.playerBlack;
                 break;
-            case ORANGE:
+            case PLAYER_ORANGE:
                 ultimate = new OrangeUltimate(game);
                 playerImage = Assets.playerOrange;
                 break;
@@ -122,6 +132,3 @@ public class Player extends Creature {
     }
 }
 
-enum PlayerSelection {
-    DEFAULT, BLACK, BLUE, ORANGE, PINK;
-}

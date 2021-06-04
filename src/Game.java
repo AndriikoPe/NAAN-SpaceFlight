@@ -23,9 +23,11 @@ public class Game implements Runnable {
     private State gameState;
     private State menuState;
     private State selectPlayerState;
+    private State selectGunState;
 
     // Input.
     private final KeyManager keyManager;
+    public final MouseInput mouseInput;
 
     public KeyManager getKeyManager() {
         return keyManager;
@@ -36,6 +38,7 @@ public class Game implements Runnable {
         this.height = height;
         this.title = title;
         keyManager = new KeyManager();
+        mouseInput = new MouseInput();
     }
 
     public int getPoints() {
@@ -62,6 +65,8 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(keyManager);
+        this.getDisplay().getCanvas().addMouseListener(mouseInput);
+        this.getDisplay().getCanvas().addMouseMotionListener(mouseInput);
         Assets.init();
 
         background = new Background(this);
@@ -75,8 +80,8 @@ public class Game implements Runnable {
         }
     }
 
-    public void setGameState() {
-        gameState = new GameState(this);
+    public void setGameState(SelectingOption player, SelectingOption gun) {
+        gameState = new GameState(this, player, gun);
         State.setState(gameState);
 
 //        MouseInput input = ((MenuState) menuState).getMouseInput();
@@ -92,6 +97,12 @@ public class Game implements Runnable {
     public void setSelectPlayerState(){
         selectPlayerState = new SelectPlayerState(this);
         State.setState(selectPlayerState);
+
+    }
+
+    public void setSelectGunState(SelectingOption selection){
+        selectGunState = new SelectGunState(this, selection);
+        State.setState(selectGunState);
 
     }
 
