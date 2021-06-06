@@ -81,6 +81,10 @@ public class Game implements Runnable {
         }
     }
 
+    public void setRunScore(int runScore) {
+        this.runScore = runScore;
+    }
+
     public void restart() {
         background = new Background(this);
         Boss.bossCounter = 0;

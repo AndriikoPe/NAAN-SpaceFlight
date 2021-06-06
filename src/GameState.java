@@ -26,6 +26,7 @@ public class GameState extends State {
         currentMap = Patterns.nextPattern();
         wavesCounter = 0;
         spawnEnemies();
+        game.setRunScore(0);
     }
 
     private Weapon initGun(SelectingOption gun){
