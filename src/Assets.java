@@ -20,6 +20,13 @@ public class Assets {
     public static BufferedImage planetDark, planetOrange, planetBrown, planetPurple, planetEarth, planetBlue;
     public static BufferedImage ultimateNotReady, ultimateReady;
     public static BufferedImage explosionImage, bigExplosionImage;
+    public static BufferedImage redLaser;
+    public static BufferedImage instructionInactive, instructionActive;
+    public static BufferedImage arrows, whitespace, one, esc;
+    public static BufferedImage okInactive, okActive;
+    public static BufferedImage failPicture;
+    public static BufferedImage blackUltimateShot, defaultShot, doubleShot, fivefoldShot,massiveShot, orangeWhiteUltimateBullet,
+    tripleShot, enemyShot;
     // Sounds
     public static Clip[] explosionClips = new Clip[3];
     public static Clip[] defaultShotClips = new Clip[3];
@@ -28,11 +35,13 @@ public class Assets {
     public static Clip[] doubleShotClips = new Clip[3];
     public static Clip[] playerHitClips = new Clip[3];
     public static Clip bossSpawnClip;
+    public static Clip coinClip;
 
     // Ultimates sounds
     public static Clip[] blackUltimateShotClips = new Clip[3];
     public static Clip[] pinkUltimateShotClips = new Clip[3];
     public static Clip orangeUltimateShot, orangeUltimateExplosion, defaultUltimateUse;
+    public static Clip purpleUltimate, grayUltimate, whiteUltimate, blueUltimate;
 
     private static final int width = 70, height = 100;
     public static final int PLANET_SIZE = 100;
@@ -51,6 +60,24 @@ public class Assets {
 
         ultimateNotReady = ImageLoader.loadImage("textures/ultimateNotReady.png");
         ultimateReady = ImageLoader.loadImage("textures/ultimateReady.png");
+        redLaser = ImageLoader.loadImage("textures/red.png");
+        instructionInactive = ImageLoader.loadImage("textures/instrInactive.png");
+        instructionActive = ImageLoader.loadImage("textures/instrActive.png");
+        arrows = ImageLoader.loadImage("textures/arrows.png");
+        one = ImageLoader.loadImage("textures/1.png");
+        esc = ImageLoader.loadImage("textures/esc.png");
+        whitespace = ImageLoader.loadImage("textures/whitespace.png");
+        okInactive = ImageLoader.loadImage("textures/okInactive.png");
+        okActive = ImageLoader.loadImage("textures/okActive.png");
+        failPicture = ImageLoader.loadImage("textures/failPicture.png");
+        blackUltimateShot = ImageLoader.loadImage("textures/blackUltimateShot.png");
+        defaultShot = ImageLoader.loadImage("textures/defaultShot.png");
+        doubleShot = ImageLoader.loadImage("textures/doubleShot.png");
+        fivefoldShot = ImageLoader.loadImage("textures/fivefoldShot.png");
+        massiveShot = ImageLoader.loadImage("textures/massiveShot.png");
+        orangeWhiteUltimateBullet = ImageLoader.loadImage("textures/orangeWhiteUltimateBullet.png");
+        tripleShot = ImageLoader.loadImage("textures/tripleShoot.png");
+        enemyShot = ImageLoader.loadImage("textures/enemyShot.png");
 
         playerBlack = sheet.crop(width * 3, height, width, height);
         playerPink = sheet.crop(width * 4, height, width, height);
@@ -106,6 +133,9 @@ public class Assets {
 
 
         try {
+            coinClip = AudioSystem.getClip();
+            coinClip.open(AudioSystem.getAudioInputStream(new File("sound/coin.wav")));
+
             explosionClips[0] = AudioSystem.getClip();
             explosionClips[0].open(AudioSystem.getAudioInputStream(new File("sound/explosion1.wav")));
 
@@ -192,6 +222,18 @@ public class Assets {
 
             defaultUltimateUse = AudioSystem.getClip();
             defaultUltimateUse.open(AudioSystem.getAudioInputStream(new File("sound/defaultUltimateUse.wav")));
+
+            purpleUltimate = AudioSystem.getClip();
+            purpleUltimate.open(AudioSystem.getAudioInputStream(new File("sound/laser.wav")));
+
+            grayUltimate = AudioSystem.getClip();
+            grayUltimate.open(AudioSystem.getAudioInputStream(new File("sound/fastandfurious.wav")));
+
+            whiteUltimate = AudioSystem.getClip();
+            whiteUltimate.open(AudioSystem.getAudioInputStream(new File("sound/bigboom.wav")));
+
+            blueUltimate = AudioSystem.getClip();
+            blueUltimate.open(AudioSystem.getAudioInputStream(new File("sound/coinUltimate.wav")));
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

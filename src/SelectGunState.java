@@ -18,7 +18,7 @@ public class SelectGunState extends State {
     private boolean showNotEnough = false;
     private SelectingOption[] options;
     private final long loadingTime;
-    private static final long TIME_TO_LOAD = 1000000000;
+    private static final long TIME_TO_LOAD = 1000000000 / 3;
     private final SelectingOption selection;
 
     public SelectGunState(Game game, SelectingOption selection) {

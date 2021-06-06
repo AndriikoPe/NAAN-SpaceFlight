@@ -11,7 +11,7 @@ public class DefaultWeapon extends Weapon {
                     entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                     entityManager.getPlayer().getY(),
                     0, 10,
-                    Assets.playerBlue);
+                    Assets.defaultShot);
             bullet.setEntityManager(entityManager);
             entityManager.addEntity(bullet);
             Assets.playDefaultShotSound();

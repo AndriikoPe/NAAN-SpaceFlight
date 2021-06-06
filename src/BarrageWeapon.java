@@ -11,19 +11,19 @@ public class BarrageWeapon extends Weapon {
                 entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                 entityManager.getPlayer().getY(),
                 -2, 8,
-                Assets.playerBlack);
+                Assets.tripleShot);
         Bullet bulletCenter = new Bullet(
                 game,
                 entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                 entityManager.getPlayer().getY(),
                 0, 9,
-                Assets.playerBlack);
+                Assets.tripleShot);
         Bullet bulletRight = new Bullet(
                 game,
                 entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                 entityManager.getPlayer().getY(),
                 2, 8,
-                Assets.playerBlack);
+                Assets.tripleShot);
         bulletLeft.setEntityManager(entityManager);
         bulletCenter.setEntityManager(entityManager);
         bulletRight.setEntityManager(entityManager);

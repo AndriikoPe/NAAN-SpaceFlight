@@ -43,7 +43,7 @@ public class GameState extends State {
     }
 
     private void spawnEnemies() {
-        if (wavesCounter >= 1) {
+        if (wavesCounter >= currentMap.size()) {
             if (Boss.bossCounter < Boss.TOTAL_BOSSES) {
                 spawnBoss();
                 return;

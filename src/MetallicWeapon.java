@@ -11,7 +11,7 @@ public class MetallicWeapon extends Weapon {
                     entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                     entityManager.getPlayer().getY(),
                     0, 8,
-                    Assets.playerPink);
+                    Assets.massiveShot);
             bullet.setEntityManager(entityManager);
             bullet.setDestroyable(false);
             bullet.setDamage(45);

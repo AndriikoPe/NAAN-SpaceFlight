@@ -58,7 +58,7 @@ public class BlackUltimate extends Ultimate {
     }
 
     private void shoot(float x) {
-        Bullet bullet = new Bullet(game, x, game.getHeight(),0, 10, Assets.playerBlack);
+        Bullet bullet = new Bullet(game, x, game.getHeight(),0, 10, Assets.blackUltimateShot);
         bullet.setEntityManager(entityManager);
         bullet.setWidth(30);
         bullet.setHeight(30);

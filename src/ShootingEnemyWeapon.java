@@ -14,7 +14,7 @@ public class ShootingEnemyWeapon extends Weapon {
                     enemy.getX() + enemy.getWidth() / 2f - Bullet.BULLET_WIDTH / 2f,
                     enemy.getY() + enemy.getHeight(),
                     0, -6,
-                    Assets.playerBlue);
+                    Assets.enemyShot);
             bullet.setEntityManager(entityManager);
             bullet.setFriendly(false);
             bullet.setDamage(15);

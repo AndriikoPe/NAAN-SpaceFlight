@@ -41,14 +41,14 @@ public class SelectPlayerState extends State {
         players.put(listOfPlayers.get(0), new Triple<>("Fully heals itself!", 0, symbols[0] == 1));
         players.put(listOfPlayers.get(1), new Triple<>("Triple shoot with 10 bullets!", 11000,
                 symbols[1] == 1));
-        players.put(listOfPlayers.get(2), new Triple<>("Shoot a giant bomb,\nthat blows up everything!",
+        players.put(listOfPlayers.get(2), new Triple<>("Shoots a giant bomb,\nthat blows up everything!",
                 10000, symbols[2] == 1));
         players.put(listOfPlayers.get(3), new Triple<>("Your next 5 shoots \nwill be fivefold!", 5000,
                 symbols[3] == 1));
-        players.put(listOfPlayers.get(4), new Triple<>("", 8000, symbols[4] == 1));
-        players.put(listOfPlayers.get(5), new Triple<>("", 9000, symbols[5] == 1));
-        players.put(listOfPlayers.get(6), new Triple<>("", 11000, symbols[6] == 1));
-        players.put(listOfPlayers.get(7), new Triple<>("", 10000, symbols[7] == 1));
+        players.put(listOfPlayers.get(4), new Triple<>("+100 coins for every destroyed \nenemy for 30 sec", 8000, symbols[4] == 1));
+        players.put(listOfPlayers.get(5), new Triple<>("Shoots a giant bomb after 5 sec \nand fully heals itself!", 9000, symbols[5] == 1));
+        players.put(listOfPlayers.get(6), new Triple<>("Shoots a long red laser\n for 5 sec!", 11000, symbols[6] == 1));
+        players.put(listOfPlayers.get(7), new Triple<>("Becomes faster and +40 coins \nfor every destroyed enemy \nfor 30 sec!", 10000, symbols[7] == 1));
         buttonRect = new Rectangle(game.getWidth() / 2 - 150, 650, 300, 120);
     }
 

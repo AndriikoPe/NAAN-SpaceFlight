@@ -1,5 +1,3 @@
-import jdk.jfr.DataAmount;
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -8,7 +6,6 @@ import java.util.List;
 public class Patterns {
 
     private final static List<Map<Point2D, ID>> patterns = new ArrayList<>();
-    private final static Random r = new Random();
 
     public static void init(Game game) {
         initFirst(game);

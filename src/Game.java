@@ -14,6 +14,7 @@ public class Game implements Runnable {
     private boolean running = false;
     private Thread thread;
     private int points;
+    private int runScore = 0;
 
     private Background background;
 
@@ -33,14 +34,19 @@ public class Game implements Runnable {
         mouseInput = new MouseInput();
     }
 
+    public int getRunScore() {
+        return runScore;
+    }
+
     public int getPoints() {
         return points;
     }
 
-    public void addPoints(int counter){
-        points += counter;
+    public void addPoints(int points){
+        this.points += points;
+        runScore += points;
         try {
-            Files.write(Paths.get("Score.txt"), (points + "").getBytes());
+            Files.write(Paths.get("Score.txt"), (this.points + "").getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +85,8 @@ public class Game implements Runnable {
         background = new Background(this);
         Boss.bossCounter = 0;
         Enemy.setPointPerHit(Enemy.DEFAULT_POINTS_PER_HIT);
-        setMenuState();
+        setFailState();
+        runScore = 0;
     }
 
     public void setGameState(SelectingOption player, SelectingOption gun) {
@@ -95,13 +102,21 @@ public class Game implements Runnable {
     public void setSelectPlayerState(){
         State selectPlayerState = new SelectPlayerState(this);
         State.setState(selectPlayerState);
+    }
 
+    public void setFailState(){
+        State failState = new FailState(this);
+        State.setState(failState);
     }
 
     public void setSelectGunState(SelectingOption selection){
         State selectGunState = new SelectGunState(this, selection);
         State.setState(selectGunState);
 
+    }
+    public  void setInstructionState(){
+        State instructionState = new InstructionState(this);
+        State.setState(instructionState);
     }
 
     public Display getDisplay() {

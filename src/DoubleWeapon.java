@@ -11,13 +11,13 @@ public class DoubleWeapon extends Weapon {
                     entityManager.getPlayer().getX(),
                     entityManager.getPlayer().getY(),
                     0, 7,
-                    Assets.playerBlue);
+                    Assets.doubleShot);
             Bullet bulletRight = new Bullet(
                     game,
                     entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() - Bullet.BULLET_WIDTH,
                     entityManager.getPlayer().getY(),
                     0, 7,
-                    Assets.playerBlue);
+                    Assets.doubleShot);
             bulletRight.setEntityManager(entityManager);
             bulletLeft.setEntityManager(entityManager);
             entityManager.addEntity(bulletRight);

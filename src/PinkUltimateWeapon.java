@@ -26,11 +26,11 @@ public class PinkUltimateWeapon extends Weapon {
         float x = entityManager.getPlayer().getX() + entityManager.getPlayer().getWidth() / 2f - Bullet.BULLET_WIDTH / 2f;
         float y = entityManager.getPlayer().getY();
         List<Bullet> bullets = new ArrayList<>();
-        bullets.add(new Bullet(game, x, y, -3f, 8, Assets.playerBlack));
-        bullets.add(new Bullet(game, x, y, -2f, 9, Assets.playerBlack));
-        bullets.add(new Bullet(game, x, y, 0, 10, Assets.playerBlack));
-        bullets.add(new Bullet(game, x, y, 2f, 9, Assets.playerBlack));
-        bullets.add(new Bullet(game, x, y, 3f, 8, Assets.playerBlack));
+        bullets.add(new Bullet(game, x, y, -3f, 8, Assets.fivefoldShot));
+        bullets.add(new Bullet(game, x, y, -2f, 9, Assets.fivefoldShot));
+        bullets.add(new Bullet(game, x, y, 0, 10, Assets.fivefoldShot));
+        bullets.add(new Bullet(game, x, y, 2f, 9, Assets.fivefoldShot));
+        bullets.add(new Bullet(game, x, y, 3f, 8, Assets.fivefoldShot));
         bullets.forEach(e -> {
             e.setEntityManager(entityManager);
             e.setHealPerHit(5);

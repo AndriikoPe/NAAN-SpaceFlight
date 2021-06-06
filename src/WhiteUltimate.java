@@ -1,17 +1,18 @@
 import java.awt.*;
 
-public class BlueUltimate extends Ultimate {
+public class WhiteUltimate extends Ultimate {
+
     private long lastTick;
     private final long TIME_TO_LOAD_ONE_PERCENT;
-    private final long TIMER = 30_000_000_000L;
+    private final long TIMER = 6_000_000_000L;
     private long currentTime;
     private boolean running;
     private static final Font numberOfShotsFont = new Font("Verdana", Font.BOLD, 25);
 
-    public BlueUltimate(Game game) {
+    public WhiteUltimate(Game game) {
         super(game);
         lastTick = System.nanoTime();
-        TIME_TO_LOAD_ONE_PERCENT = 1_000_000_000L;
+        TIME_TO_LOAD_ONE_PERCENT = 400_000_000;
         readiness = 100;
     }
 
@@ -21,8 +22,17 @@ public class BlueUltimate extends Ultimate {
             lastTick = System.nanoTime();
             if (readiness < 100) readiness++;
         }
-        if (running && System.nanoTime() - currentTime > TIMER) {
-            Enemy.setPointPerHit(Enemy.getPointPerHit() - 100);
+        if (running && System.nanoTime() - currentTime >= TIMER) {
+            Assets.playSound(Assets.whiteUltimate);
+            OrangeUltimateBullet bullet = new OrangeUltimateBullet(game,
+                    entityManager.getPlayer().getX() + (entityManager.getPlayer().getWidth()
+                            - OrangeUltimateBullet.DEFAULT_ULTIMATE_BULLET_WIDTH) / 2f, entityManager.getPlayer().getY(),
+                    Assets.orangeWhiteUltimateBullet);
+            bullet.setDamage(250);
+            bullet.setEntityManager(entityManager);
+            entityManager.addEntity(bullet);
+            entityManager.getPlayer().heal(entityManager.getPlayer().getMaxHealth());
+            game.addPoints(100);
             running = false;
         }
     }
@@ -30,15 +40,12 @@ public class BlueUltimate extends Ultimate {
     @Override
     public void use() {
         if (isReady()) {
-            Assets.playSound(Assets.blueUltimate);
             readiness = 0;
             running = true;
             currentTime = System.nanoTime();
-            Enemy.setPointPerHit(Enemy.getPointPerHit() + 100);
         }
     }
 
-    @Override
     public void render(Graphics g) {
         super.render(g);
         if (running) {

@@ -39,14 +39,15 @@ public class Player extends Creature {
                 playerImage = Assets.playerBlue;
                 break;
             case PLAYER_PURPLE:
+                ultimate = new PurpleUltimate(game);
                 playerImage = Assets.playerPurple;
                 break;
             case PLAYER_GRAY:
-
+                ultimate = new GrayUltimate(game);
                 playerImage = Assets.playerGray;
                 break;
             case PLAYER_WHITE:
-
+                ultimate = new WhiteUltimate(game);
                 playerImage = Assets.playerWhite;
                 break;
             case PLAYER_PINK:
@@ -101,6 +102,7 @@ public class Player extends Creature {
                 }
             } else if (e instanceof Coin) {
                 if (getBounds().intersects(e.getBounds())) {
+                    Assets.playSound(Assets.coinClip);
                     entityManager.getEntities().remove(e);
                     game.addPoints(1);
                 }
